@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adobe Certification Mastery — AA & CJA Study Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a26;--surface3:#22222f;
+--border:#2a2a3a;--border-light:#3a3a4f;
+--text:#e8e6f0;--text-dim:#8a88a0;--text-muted:#5a5870;
+--accent:#ff6b35;--accent2:#ff8c5a;--accent-glow:rgba(255,107,53,0.15);
+--blue:#4a90ff;--blue-dim:rgba(74,144,255,0.12);
+--green:#3dd68c;--green-dim:rgba(61,214,140,0.12);
+--purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
+--red:#ff6b6b;--red-dim:rgba(255,107,107,0.12);
+--yellow:#fbbf24;--yellow-dim:rgba(251,191,36,0.12);
+--radius:10px;--radius-sm:6px;--radius-lg:16px;
+--shadow:0 4px 24px rgba(0,0,0,0.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--border-light)}
+
+/* TOP HEADER */
+.top-header{
+position:sticky;top:0;z-index:100;
+background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
+padding:0 32px;height:64px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),#ff3e00);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff}
+.logo-text{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);letter-spacing:-0.5px}
+.logo-text span{color:var(--accent)}
+.exam-tabs{display:flex;gap:4px;background:var(--surface2);padding:4px;border-radius:10px;border:1px solid var(--border)}
+.exam-tab{
+padding:8px 24px;border-radius:7px;border:none;cursor:pointer;
+font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+color:var(--text-dim);background:transparent;transition:all .25s ease;
+letter-spacing:0.3px;
+}
+.exam-tab.active{background:var(--accent);color:#fff;box-shadow:0 2px 12px rgba(255,107,53,0.3)}
+.exam-tab:hover:not(.active){color:var(--text);background:var(--surface3)}
+.header-meta{display:flex;align-items:center;gap:16px}
+.progress-ring{position:relative;width:38px;height:38px}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring circle{fill:none;stroke-width:3;stroke-linecap:round}
+.progress-ring .bg{stroke:var(--border)}
+.progress-ring .fg{stroke:var(--green);transition:stroke-dashoffset .6s ease}
+.progress-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--green)}
+
+/* LAYOUT */
+.app-layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px)}
+
+/* SIDEBAR */
+.sidebar{
+background:var(--surface);border-right:1px solid var(--border);
+overflow-y:auto;padding:20px 16px;
+position:sticky;top:64px;height:calc(100vh - 64px);
+}
+.search-box{position:relative;margin-bottom:20px}
+.search-box input{
+width:100%;padding:10px 12px 10px 38px;
+background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);
+color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;
+transition:border-color .2s;
+}
+.search-box input:focus{outline:none;border-color:var(--accent)}
+.search-box input::placeholder{color:var(--text-muted)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px}
+.nav-section{margin-bottom:16px}
+.nav-section-title{
+font-size:10px;font-weight:700;text-transform:uppercase;
+letter-spacing:1.2px;color:var(--text-muted);
+padding:8px 10px;display:flex;align-items:center;gap:6px;
+}
+.nav-section-title::before{content:'';width:8px;height:2px;background:var(--accent);border-radius:1px}
+.nav-item{
+padding:9px 12px;border-radius:var(--radius-sm);cursor:pointer;
+font-size:13px;color:var(--text-dim);
+display:flex;align-items:center;gap:8px;
+transition:all .2s ease;margin-bottom:2px;position:relative;
+}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--accent-glow);color:var(--accent);font-weight:600}
+.nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--accent);border-radius:0 2px 2px 0}
+.nav-item .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.nav-item .dot.done{background:var(--green)}
+.nav-item .dot.todo{background:var(--border)}
+
+/* MAIN CONTENT */
+.main-content{overflow-y:auto;padding:40px 56px 80px;max-width:960px}
+.content-header{margin-bottom:36px}
+.content-header .breadcrumb{font-size:12px;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.content-header .breadcrumb .sep{opacity:0.4}
+.content-header h1{
+font-family:'DM Serif Display',serif;font-size:36px;
+color:var(--text);line-height:1.2;letter-spacing:-0.5px;margin-bottom:12px;
+}
+.content-header .subtitle{font-size:15px;color:var(--text-dim);max-width:640px}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.tag{
+display:inline-flex;align-items:center;gap:4px;
+padding:4px 12px;border-radius:20px;
+font-size:11px;font-weight:600;letter-spacing:0.3px;
+}
+.tag.exam{background:var(--red-dim);color:var(--red)}
+.tag.key{background:var(--yellow-dim);color:var(--yellow)}
+.tag.tip{background:var(--blue-dim);color:var(--blue)}
+.tag.new{background:var(--green-dim);color:var(--green)}
+
+/* CONTENT TYPOGRAPHY */
+.content h2{
+font-family:'DM Serif Display',serif;font-size:24px;
+color:var(--text);margin:40px 0 16px;padding-bottom:10px;
+border-bottom:1px solid var(--border);letter-spacing:-0.3px;
+}
+.content h3{font-size:17px;font-weight:700;color:var(--text);margin:28px 0 10px}
+.content p{margin-bottom:14px;color:var(--text-dim);font-size:14.5px;line-height:1.75}
+.content strong{color:var(--text);font-weight:600}
+.content ul,.content ol{margin:12px 0 12px 20px}
+.content li{margin-bottom:8px;color:var(--text-dim);font-size:14.5px;line-height:1.65}
+
+/* CARDS & BOXES */
+.info-card{
+background:var(--surface);border:1px solid var(--border);
+border-radius:var(--radius-lg);padding:24px 28px;margin:20px 0;
+position:relative;overflow:hidden;
+}
+.info-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px}
+.info-card.exam-info::before{background:linear-gradient(90deg,var(--accent),var(--red))}
+.info-card.success::before{background:linear-gradient(90deg,var(--green),#2dd4bf)}
+.info-card.warning::before{background:linear-gradient(90deg,var(--yellow),var(--accent))}
+.info-card.danger::before{background:linear-gradient(90deg,var(--red),#ff4757)}
+.info-card.concept::before{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.info-card .card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.info-card p{font-size:13.5px}
+
+/* TABLES */
+.data-table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.data-table th{
+background:var(--surface2);color:var(--text);
+padding:12px 16px;text-align:left;font-size:12px;
+font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
+border-bottom:1px solid var(--border);
+}
+.data-table td{
+padding:12px 16px;font-size:13.5px;color:var(--text-dim);
+border-bottom:1px solid var(--border);background:var(--surface);
+}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--surface2)}
+
+/* DIAGRAM BOX */
+.diagram{
+background:var(--surface);border:1px solid var(--border);
+border-radius:var(--radius-lg);padding:28px;margin:24px 0;
+text-align:center;font-family:'JetBrains Mono',monospace;
+}
+.diagram .flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.diagram .flow-box{
+padding:10px 18px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;
+border:1px solid;
+}
+.diagram .flow-arrow{color:var(--text-muted);font-size:18px}
+.diagram .layer1{background:var(--blue-dim);color:var(--blue);border-color:rgba(74,144,255,0.3)}
+.diagram .layer2{background:var(--green-dim);color:var(--green);border-color:rgba(61,214,140,0.3)}
+.diagram .layer3{background:var(--purple-dim);color:var(--purple);border-color:rgba(167,139,250,0.3)}
+.diagram .layer4{background:var(--yellow-dim);color:var(--yellow);border-color:rgba(251,191,36,0.3)}
+.diagram .layer5{background:var(--red-dim);color:var(--red);border-color:rgba(255,107,107,0.3)}
+
+/* CODE / FORMULA */
+.code-block{
+background:var(--surface2);border:1px solid var(--border);
+border-radius:var(--radius);padding:16px 20px;margin:16px 0;
+font-family:'JetBrains Mono',monospace;font-size:13px;
+color:var(--green);line-height:1.8;overflow-x:auto;
+}
+.formula{
+display:inline-block;background:var(--surface2);border:1px solid var(--border);
+border-radius:var(--radius-sm);padding:4px 12px;
+font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent2);
+}
+
+/* QUIZ */
+.quiz-card{
+background:var(--surface);border:1px solid var(--border);
+border-radius:var(--radius-lg);padding:24px;margin:24px 0;
+}
+.quiz-card .q-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.quiz-card .q-text{font-size:15px;font-weight:600;color:var(--text);margin-bottom:16px}
+.quiz-option{
+display:block;width:100%;text-align:left;padding:12px 16px;
+background:var(--surface2);border:1px solid var(--border);
+border-radius:var(--radius-sm);margin-bottom:6px;cursor:pointer;
+font-size:13px;color:var(--text-dim);
+font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.quiz-option:hover{border-color:var(--accent);color:var(--text)}
+.quiz-option.correct{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.quiz-option.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.quiz-explain{
+display:none;margin-top:12px;padding:14px;
+background:var(--surface2);border-radius:var(--radius-sm);
+font-size:13px;color:var(--text-dim);line-height:1.6;
+border-left:3px solid var(--accent);
+}
+
+/* COMPARISON */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.vs-card{
+background:var(--surface);border:1px solid var(--border);
+border-radius:var(--radius);padding:20px;
+}
+.vs-card h4{font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.vs-card p,.vs-card li{font-size:13px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.app-layout{grid-template-columns:1fr}
+.sidebar{position:relative;top:0;height:auto;max-height:50vh}
+.main-content{padding:24px 20px 60px}
+.vs-grid{grid-template-columns:1fr}
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.content{animation:fadeIn .4s ease}
+/* ===== MINIMAL MOBILE FIXES (paste at end of <style>) ===== */
+@media (max-width: 600px) {
+
+  /* Header: allow wrap + reduce spacing */
+  .top-header{
+    padding: 10px 14px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Tabs: prevent overflow by allowing horizontal scroll */
+  .exam-tabs{
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .exam-tab{
+    white-space: nowrap;
+    flex: 0 0 auto;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  /* Main content: smaller padding and title */
+  .main-content{ padding: 18px 14px 50px; }
+  .content-header h1{ font-size: 26px; }
+
+  /* Sidebar: don't take half the screen */
+  .sidebar{
+    position: relative;
+    top: 0;
+    height: auto;
+    max-height: none;
+    padding: 14px 12px;
+  }
+
+  /* Tables: allow sideways scroll instead of breaking layout */
+  .data-table{
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<header class="top-header">
+  <!-- Hamburger -->
+  <button class="menu-btn" id="menu-btn" aria-label="Toggle menu">☰</button>
+
+  <div class="logo">
+    <div class="logo-icon">A</div>
+    <div class="logo-text">Adobe <span>Cert</span> Mastery</div>
+  </div>
+  <div class="exam-tabs">
+    <button class="exam-tab active" onclick="switchExam('aa',event)">AD0-E212 · Adobe Analytics</button>
+    <button class="exam-tab" onclick="switchExam('cja',event)">AD0-E608 · CJA</button>
+  </div>
+  <div class="header-meta">
+    <div class="progress-ring">
+      <svg width="38" height="38"><circle class="bg" cx="19" cy="19" r="16"/><circle class="fg" cx="19" cy="19" r="16" stroke-dasharray="100.5" stroke-dashoffset="40" id="prog-circle"/></svg>
+      <div class="progress-text" id="prog-text">0%</div>
+    </div>
+  </div>
+</header>
+
+<!-- Overlay -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search" placeholder="Search topics..." oninput="filterNav()">
+    </div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+  <!-- MAIN -->
+  <main class="main-content">
+    <div id="content-area" class="content"></div>
+  </main>
+</div>
+
+<script>
+// ============== DATA STRUCTURE ==============
+const DATA = {
+aa: {
+  label: "Adobe Analytics (AD0-E212)",
+  sections: [
+    {
+      id:"overview", title:"Exam Overview", items:[
+        {id:"exam-details", title:"Exam Details & Structure"},
+        {id:"study-strategy", title:"Study Strategy & Tips"},
+        {id:"tricky-questions", title:"Tricky Question Patterns"},
+      ]
+    },
+    {
+      id:"fundamentals", title:"Fundamentals", items:[
+        {id:"what-is-aa", title:"What is Adobe Analytics"},
+        {id:"data-flow", title:"Data Collection & Flow"},
+        {id:"report-suites", title:"Report Suites"},
+        {id:"processing-rules", title:"Processing & VISTA Rules"},
+      ]
+    },
+    {
+      id:"variables", title:"Variables & Tracking", items:[
+        {id:"props", title:"Props (Traffic Variables)"},
+        {id:"evars", title:"eVars (Conversion Variables)"},
+        {id:"props-vs-evars", title:"Props vs eVars Comparison"},
+        {id:"events", title:"Success Events (s.events)"},
+        {id:"tracking-code", title:"Tracking Code & Campaigns"},
+        {id:"hit-types", title:"s.t() vs s.tl() Hit Types"},
+      ]
+    },
+    {
+      id:"segmentation", title:"Segmentation", items:[
+        {id:"seg-containers", title:"Segment Containers"},
+        {id:"seg-logic", title:"AND / OR / THEN Logic"},
+        {id:"seg-sequential", title:"Sequential Segmentation"},
+      ]
+    },
+    {
+      id:"reporting", title:"Reporting & Workspace", items:[
+        {id:"workspace", title:"Analysis Workspace"},
+        {id:"viz-fallout", title:"Fallout Visualization"},
+        {id:"viz-flow", title:"Flow Visualization"},
+        {id:"viz-cohort", title:"Cohort Tables"},
+        {id:"viz-venn", title:"Venn & Histogram"},
+      ]
+    },
+    {
+      id:"attribution", title:"Attribution & Metrics", items:[
+        {id:"attr-models", title:"Attribution Models"},
+        {id:"calc-metrics", title:"Calculated Metrics"},
+        {id:"marketing-channels", title:"Marketing Channels"},
+      ]
+    },
+    {
+      id:"admin", title:"Admin & Implementation", items:[
+        {id:"classifications", title:"Classifications (SAINT)"},
+        {id:"data-feeds", title:"Data Feeds & Warehouse"},
+        {id:"virtual-report-suites", title:"Virtual Report Suites"},
+        {id:"anomaly-detection", title:"Anomaly Detection & Alerts"},
+      ]
+    },
+  ]
+},
+cja: {
+  label: "Customer Journey Analytics (AD0-E608)",
+  sections: [
+    {
+      id:"overview", title:"Exam Overview", items:[
+        {id:"exam-details", title:"Exam Details & Structure"},
+        {id:"cja-vs-aa", title:"CJA vs Adobe Analytics"},
+      ]
+    },
+    {
+      id:"aep", title:"Adobe Experience Platform", items:[
+        {id:"what-is-aep", title:"What is AEP"},
+        {id:"why-aep", title:"Why CJA Needs AEP"},
+        {id:"xdm", title:"XDM Schema (Experience Data Model)"},
+      ]
+    },
+    {
+      id:"architecture", title:"4-Layer Architecture", items:[
+        {id:"arch-overview", title:"Architecture Overview"},
+        {id:"layer1-schema", title:"Layer 1: Schema"},
+        {id:"layer2-dataset", title:"Layer 2: Dataset"},
+        {id:"layer3-connection", title:"Layer 3: Connection"},
+        {id:"layer4-dataview", title:"Layer 4: Data View"},
+      ]
+    },
+    {
+      id:"identity", title:"Identity & Stitching", items:[
+        {id:"identity-stitching", title:"What is Identity Stitching"},
+        {id:"person-id", title:"Person ID Configuration"},
+        {id:"field-stitching", title:"Field-Based Stitching"},
+        {id:"graph-stitching", title:"Graph-Based Stitching"},
+        {id:"replay", title:"Replay Process"},
+      ]
+    },
+    {
+      id:"cross-channel", title:"Cross-Channel Analysis", items:[
+        {id:"what-cross-channel", title:"Cross-Channel Concepts"},
+        {id:"ropo", title:"ROPO Analysis"},
+        {id:"journey-tracking", title:"Complete Journey Tracking"},
+      ]
+    },
+    {
+      id:"components", title:"CJA Components", items:[
+        {id:"cja-filters", title:"Filters (Segments in CJA)"},
+        {id:"cja-dimensions", title:"Dimensions & Metrics"},
+        {id:"derived-fields", title:"Derived Fields"},
+        {id:"cja-calc-metrics", title:"Calculated Metrics in CJA"},
+        {id:"date-ranges", title:"Date Ranges & Panels"},
+      ]
+    },
+    {
+      id:"reporting", title:"Reporting & Analysis", items:[
+        {id:"cja-workspace", title:"Analysis Workspace in CJA"},
+        {id:"cja-attribution", title:"Attribution in CJA"},
+        {id:"cja-visualizations", title:"Visualizations & Tables"},
+        {id:"cja-distribution", title:"Distribution & Sharing"},
+      ]
+    },
+  ]
+}
+};
+
+// ============== CONTENT ==============
+const CONTENT = {
+
+// ====================== AA CONTENT ======================
+
+"aa-exam-details": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Exam Overview</div>
+  <h1>AD0-E212 Exam Details & Structure</h1>
+  <p class="subtitle">Everything you need to know about the Adobe Analytics Business Practitioner Professional certification exam</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Critical</span><span class="tag key">Must Know First</span></div>
+
+<div class="info-card exam-info">
+  <div class="card-title">📋 Exam Specifications</div>
+  <table class="data-table">
+  <tr><th style="width:200px">Parameter</th><th>Detail</th></tr>
+  <tr><td><strong>Exam Code</strong></td><td>AD0-E212</td></tr>
+  <tr><td><strong>Full Name</strong></td><td>Adobe Analytics Business Practitioner Professional</td></tr>
+  <tr><td><strong>Total Questions</strong></td><td>50 multiple-choice questions</td></tr>
+  <tr><td><strong>Duration</strong></td><td>100 minutes (2 min per question average)</td></tr>
+  <tr><td><strong>Passing Score</strong></td><td>31 out of 50 (62%)</td></tr>
+  <tr><td><strong>Cost</strong></td><td>$125 USD</td></tr>
+  <tr><td><strong>Delivery</strong></td><td>Online proctored (Examity) or test center</td></tr>
+  <tr><td><strong>Language</strong></td><td>English</td></tr>
+  <tr><td><strong>Prerequisites</strong></td><td>6+ months Adobe Analytics experience recommended</td></tr>
+  <tr><td><strong>Question Types</strong></td><td>Multiple choice (single answer & multiple select)</td></tr>
+  </table>
+</div>
+
+<h2>Exam Blueprint — Weight Distribution</h2>
+<p>The exam is divided into four main sections. Understanding the weight of each section helps you prioritize your study time. The "Reporting & Dashboarding" section carries the heaviest weight at 38%, meaning almost 2 out of every 5 questions will test your knowledge of Analysis Workspace, visualizations, and report building. Business Analysis is the second heaviest at 34% — this tests your ability to translate business requirements into analytics variables and configurations. Segmentation at 19% tests your understanding of segment containers and logic operators, while General Tool Knowledge at 9% covers the broader Adobe ecosystem awareness. The key strategy is to nail the first two sections — together they account for 72% of the exam, which is 36 questions out of 50. If you can master variables, data flow, Workspace, and visualizations, you are well on your way to passing.</p>
+
+<table class="data-table">
+<thead><tr><th>Section</th><th>Weight</th><th>Approx Questions</th><th>Key Topics</th></tr></thead>
+<tbody>
+<tr><td><strong>Business Analysis</strong></td><td>34%</td><td>~17</td><td>Variables (props/eVars), data flow, tracking code, report suites, processing rules</td></tr>
+<tr><td><strong>Reporting & Dashboarding</strong></td><td>38%</td><td>~19</td><td>Analysis Workspace, visualizations (Fallout, Flow, Cohort), Freeform tables, panels</td></tr>
+<tr><td><strong>Segmentation & Calc Metrics</strong></td><td>19%</td><td>~10</td><td>Segment containers (Hit/Visit/Visitor), AND/OR/THEN logic, calculated metric formulas</td></tr>
+<tr><td><strong>General Tool Knowledge</strong></td><td>9%</td><td>~4-5</td><td>Adobe Experience Cloud ecosystem, admin tools, report types, integrations</td></tr>
+</tbody>
+</table>
+
+<h2>Time Management Strategy</h2>
+<div class="info-card warning">
+  <div class="card-title">⏱ Three-Pass Approach</div>
+  <p><strong>Pass 1 (35 minutes):</strong> Blast through all 50 questions. Answer anything you know immediately. Flag anything that needs thought. This ensures you never miss easy points due to time pressure.</p>
+  <p><strong>Pass 2 (45 minutes):</strong> Return to flagged questions. Apply elimination strategy — typically you can remove 2 of 4 options immediately. Use your deeper knowledge to decide between remaining options.</p>
+  <p><strong>Pass 3 (20 minutes):</strong> Review ALL answers. Check for careless mistakes. Look for questions where "source vs storage" traps may have caught you. Trust your first instinct unless you have a concrete reason to change.</p>
+</div>
+`,
+
+"aa-study-strategy": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Exam Overview</div>
+  <h1>Study Strategy & Exam Tips</h1>
+  <p class="subtitle">A structured 4-week study plan and proven strategies to pass the AD0-E212 on your first attempt</p>
+</div>
+<div class="tag-row"><span class="tag key">Strategy</span><span class="tag tip">Pro Tips</span></div>
+
+<h2>4-Week Study Plan</h2>
+<p>The most effective approach to preparing for AD0-E212 is a structured, progressive study plan. Rather than cramming everything in the last week, you should build foundational knowledge first, then layer on complexity. This plan assumes you have roughly 2-4 hours per day available for study.</p>
+
+<table class="data-table">
+<thead><tr><th>Week</th><th>Focus Area</th><th>Daily Hours</th><th>Activities</th></tr></thead>
+<tbody>
+<tr><td><strong>Week 1</strong></td><td>Fundamentals & Data Flow</td><td>2-3 hrs</td><td>Understand how data flows from browser to reports. Learn variables (props vs eVars), hit types, and report suites. Practice in Analysis Workspace if you have access.</td></tr>
+<tr><td><strong>Week 2</strong></td><td>Variables & Tracking Deep Dive</td><td>2-3 hrs</td><td>Master eVar persistence settings, tracking code source vs storage, success events. Understand marketing channels and processing rules.</td></tr>
+<tr><td><strong>Week 3</strong></td><td>Segmentation, Workspace & Visualizations</td><td>3-4 hrs</td><td>Segment containers (Hit/Visit/Visitor) with examples. Build Fallout, Flow, and Cohort analyses. Learn calculated metric formulas.</td></tr>
+<tr><td><strong>Week 4</strong></td><td>Practice Tests & Review</td><td>4-5 hrs</td><td>Take practice exams. Review weak areas. Memorize formula patterns (conversion rate, bounce rate, AOV). Focus on tricky question patterns.</td></tr>
+</tbody>
+</table>
+
+<h2>Top Study Resources</h2>
+<div class="info-card concept">
+  <div class="card-title">📚 Recommended Resources</div>
+  <p><strong>1. Adobe Experience League Documentation</strong> — The single best free resource. Official docs cover every topic in the exam blueprint. Read the Analytics fundamentals section thoroughly.</p>
+  <p><strong>2. Adobe Analytics YouTube Channel</strong> — Video tutorials directly from Adobe's product team. Especially useful for understanding Workspace visualizations and workflows.</p>
+  <p><strong>3. Adobe Experience League Tutorials</strong> — Hands-on guided exercises. These are particularly valuable for segmentation and calculated metrics topics.</p>
+  <p><strong>4. Practice Tests on EDUSUM/Adobe</strong> — Sample questions that mimic the real exam format. The official Adobe exam page often includes 10 sample questions.</p>
+  <p><strong>5. Hands-On Practice</strong> — Nothing beats actual time in Analysis Workspace. If you have access, build real segments, calculated metrics, and Fallout reports.</p>
+</div>
+
+<h2>Key Mindset Tips</h2>
+<p>The exam tests practical, scenario-based knowledge — not rote memorization. Questions are typically framed as "A business stakeholder wants to understand X. Which variable/visualization/approach should you use?" You need to think like an analyst solving real business problems. When you see a question, first identify what the business is trying to accomplish, then match that to the correct Adobe Analytics feature. The exam does not test implementation code syntax heavily — it focuses on the "what" and "why" rather than the "how" of coding.</p>
+`,
+
+"aa-tricky-questions": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Exam Overview</div>
+  <h1>Tricky Question Patterns</h1>
+  <p class="subtitle">Common exam traps and how to avoid them — based on real candidate experiences and official sample questions</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Critical</span><span class="tag danger">⚠ Traps</span></div>
+
+<h2>Trap #1: Source vs Storage Confusion</h2>
+<p>This is arguably the most common trick in the entire exam. Adobe intentionally designs questions that blur the line between WHERE data comes FROM (the source) and WHERE data is STORED (the variable). The tracking code dimension is the classic example. When a question asks "How is the tracking code dimension populated?", the correct answer is "URL query string parameters" — because that is the SOURCE of the data. The wrong but tempting answer is "eVar" — because that is where the value gets STORED after JavaScript reads it from the URL. The exam tests whether you understand this distinction. Always ask yourself: "Is this question asking about the origin of the data or where it lives in Adobe?"</p>
+
+<div class="quiz-card">
+  <div class="q-label">Practice Question</div>
+  <div class="q-text">How is the tracking code dimension populated in Adobe Analytics?</div>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">A) eVar variable</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'correct')">B) URL query string parameters</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">C) v0 query parameter</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">D) Processing rules</button>
+  <div class="quiz-explain"><strong>Explanation:</strong> The tracking code comes FROM the URL query string (e.g., ?cid=summer_campaign). The JavaScript (AppMeasurement) reads this parameter and sets s.campaign. The eVar is where it is stored, not where it originates. "v0" is Adobe's internal server-side format. Processing rules modify data after collection. Source ≠ Storage!</div>
+</div>
+
+<h2>Trap #2: Container Scope Misunderstanding</h2>
+<p>Questions about segment containers are designed to test whether you truly understand the cascading scope of Hit → Visit → Visitor. The trap is assuming that a Visitor container with condition "Page = Cart" only returns cart page views. In reality, a VISITOR container returns ALL data for any visitor who EVER viewed the cart page — including their homepage visits, product views, and every other interaction across their entire lifetime. Similarly, a Visit container includes ALL hits within qualifying visits, not just the specific hits that match. Only the Hit container gives you exactly the matching hits and nothing more. When you see a container question, mentally expand the scope to understand what additional data gets included.</p>
+
+<h2>Trap #3: Fallout vs Flow Keyword Confusion</h2>
+<p>The exam loves testing whether you know when to use Fallout vs Flow visualizations. The keyword "sequential" or "customer journey" almost always points to FALLOUT. Fallout shows a pre-defined sequence of steps with conversion and drop-off rates at each stage. Flow is for path exploration — discovering what paths users actually take (not pre-defined). If a question mentions "sequential journey," "step-by-step funnel," or "conversion rates between defined steps," the answer is always Fallout. If it mentions "discover navigation paths," "explore user behavior," or "see where users go," it is Flow.</p>
+
+<h2>Trap #4: s.t() vs s.tl() Page View Count</h2>
+<p>A classic question asks: "A user clicks a download link on your site. Does the page views metric increase?" The answer is NO. Download clicks are tracked with s.tl() (link tracking), which creates a server call but does NOT increment the page views metric. Only s.t() (page view tracking) increments page views. The trap is that people assume all server calls equal page views — they do not.</p>
+
+<h2>Trap #5: Props Cannot Attribute Conversions</h2>
+<p>If a question asks about tracking something for "conversion attribution" or "understanding what led to a purchase," the answer is ALWAYS eVar, never prop. Props have zero persistence — they only exist on the exact hit where they are set. Since conversions happen on later hits, props cannot connect the dots. Only eVars persist across hits to enable attribution.</p>
+`,
+
+"aa-what-is-aa": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Fundamentals</div>
+  <h1>What is Adobe Analytics?</h1>
+  <p class="subtitle">Understanding the industry-leading digital analytics platform and its core capabilities</p>
+</div>
+<div class="tag-row"><span class="tag key">Foundation</span><span class="tag tip">Start Here</span></div>
+
+<h2>The Digital Analytics Problem</h2>
+<p>Adobe Analytics is the industry-leading enterprise digital analytics platform that transforms invisible digital behavior into observable, measurable, and actionable insights. In the physical retail world, store managers can directly observe customers — watching them browse aisles, noting which products they pick up, overhearing their conversations, and seeing when they leave without purchasing. This natural observability does not exist in the digital world. When someone visits a website or uses a mobile app, their behavior is completely invisible unless you have analytics instrumentation in place. Adobe Analytics solves this fundamental problem by collecting, processing, and reporting on every digital interaction a user has with your properties. It captures page views, clicks, scrolls, form submissions, video plays, purchases, and hundreds of other behavioral signals. These raw interactions are then organized into meaningful dimensions and metrics that allow business stakeholders to understand user behavior, measure campaign effectiveness, optimize conversion funnels, and make data-driven decisions. The platform is used by over 80% of Fortune 100 companies and processes trillions of server calls annually, making it the most widely deployed enterprise analytics solution in the world.</p>
+
+<h2>Core Capabilities</h2>
+<p><strong>Data Collection:</strong> Adobe Analytics captures every user interaction through JavaScript libraries (AppMeasurement.js or the modern Web SDK), mobile SDKs, and server-side integrations. Data is collected in real-time and includes contextual information like device type, browser, geographic location, referring domain, and marketing channel attribution. The collection layer is highly configurable — organizations define which variables to capture and how they map to business concepts.</p>
+
+<p><strong>Analysis Workspace:</strong> The primary interface for analysis is Analysis Workspace — a powerful drag-and-drop environment where analysts can build custom reports without writing code. Workspace supports Freeform Tables (the most flexible report type), multiple visualization types (line charts, bar charts, area charts, scatter plots, donuts, treemaps), multiple panels in a single project, and real-time collaboration. It replaced the older Reports & Analytics interface and is now the standard analysis tool.</p>
+
+<p><strong>Segmentation:</strong> Adobe Analytics provides a sophisticated segmentation engine with three container levels (Hit, Visit, Visitor), boolean logic operators (AND, OR, THEN), and sequential segmentation capabilities. Segments can be applied retroactively to any report and used across all visualizations. The segmentation engine is one of the most powerful in the analytics industry and is a significant portion of the certification exam.</p>
+
+<p><strong>Attribution:</strong> Understanding which marketing touchpoints contribute to conversions is a critical business need. Adobe Analytics supports multiple attribution models including First Touch, Last Touch, Linear, Time Decay, U-Shaped (Position-Based), and Participation. Attribution can be applied to any dimension in Analysis Workspace, not just marketing channels, giving analysts unprecedented flexibility in understanding conversion paths.</p>
+
+<p><strong>Predictive Analytics:</strong> Adobe Sensei (Adobe's AI/ML engine) powers anomaly detection, contribution analysis, and intelligent alerts within Analytics. Anomaly detection automatically identifies statistical outliers in your data. Contribution analysis determines which dimensions are driving those anomalies. Intelligent alerts notify stakeholders when important changes occur in their data — all without manual monitoring.</p>
+
+<div class="info-card concept">
+  <div class="card-title">💡 Key Value Proposition</div>
+  <p>Adobe Analytics makes digital behavior: <strong>Observable</strong> (see what happened through data collection), <strong>Measurable</strong> (quantify with metrics like conversion rate, bounce rate, revenue), and <strong>Actionable</strong> (make data-driven decisions through analysis and attribution). This transformation from invisible to actionable is the fundamental value of the platform and the philosophical foundation for everything in the exam.</p>
+</div>
+`,
+
+"aa-data-flow": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Fundamentals</div>
+  <h1>Data Collection & Flow</h1>
+  <p class="subtitle">The complete 5-stage journey from user action to reportable data — a critical 15% of the exam</p>
+</div>
+<div class="tag-row"><span class="tag exam">~15% of Exam</span><span class="tag key">Must Master</span></div>
+
+<h2>The 5-Stage Data Pipeline</h2>
+<p>Understanding how data flows from a user's browser to your Adobe Analytics reports is one of the most critical concepts for the exam. Approximately 15% of questions directly or indirectly test your knowledge of this pipeline. The flow has five distinct stages, and each stage transforms the data in a specific way. Understanding which stage does what is essential for answering questions about data collection, variable population, processing rules, and server-side enrichment.</p>
+
+<div class="diagram">
+  <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px">Adobe Analytics Data Flow Pipeline</div>
+  <div class="flow">
+    <div class="flow-box layer1">Stage 1<br><small>User Action</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer2">Stage 2<br><small>JS Collection</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer3">Stage 3<br><small>Image Request</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer4">Stage 4<br><small>Server Processing</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer5">Stage 5<br><small>Storage & Reporting</small></div>
+  </div>
+</div>
+
+<h3>Stage 1: User Action (The Trigger)</h3>
+<p>Everything begins with a user action — a page load, button click, form submission, video play, purchase completion, or any other trackable interaction. This action serves as the trigger for the analytics data collection process. At this stage, no data has been collected yet. The action simply initiates the sequence. For page loads, this happens automatically when the HTML document finishes loading and the JavaScript executes. For interactions like clicks and downloads, event listeners or manual tracking calls trigger the collection. The tracking code also originates here — when a user clicks a marketing link with URL parameters (e.g., ?cid=summer_sale), those parameters are part of the user action.</p>
+
+<h3>Stage 2: JavaScript Collection (AppMeasurement.js)</h3>
+<p>Once the trigger fires, the AppMeasurement.js library (or the modern Web SDK / Adobe Launch) executes its tracking logic. This JavaScript code performs several critical functions: it reads the URL to extract query parameters like campaign tracking codes, it reads cookies to identify returning visitors, it captures contextual data like page name (s.pageName), referring URL, screen resolution, and browser type. It then packages all of this information into a set of s.* variables. For example: s.pageName = "Product Detail - Running Shoes", s.products = ";Shoes;1;89.99", s.events = "purchase", s.campaign = "summer_email_2025". After assembling all variables, the library fires either an s.t() call (page view track) or an s.tl() call (link track), which initiates the server request.</p>
+
+<h3>Stage 3: Image Request (The Beacon)</h3>
+<p>The JavaScript library sends data to Adobe's data collection servers via an HTTP request disguised as a 1x1 pixel image request (often called a "beacon"). This technique is used because image requests can be sent cross-domain without browser security restrictions. The request URL contains all the tracked variables encoded as URL parameters. A typical beacon URL looks like: https://metrics.example.com/b/ss/rsid/1/JS-2.x/s12345?pageName=Product%20Detail&events=purchase&products=;Shoes;1;89.99. The data travels from the user's browser to Adobe's Data Collection (DC) servers, which receive and acknowledge the request.</p>
+
+<h3>Stage 4: Server-Side Processing</h3>
+<p>Once Adobe's servers receive the image request, they perform extensive processing before the data becomes reportable. This is where the magic of data transformation happens. First, VISTA rules execute — these are server-side rules configured by Adobe consultants that can modify, copy, or delete data before it enters the processing pipeline. Next, Processing Rules run — these are admin-configurable rules that can map context data variables to props/eVars, set values based on conditions, and perform basic data transformations. Then, Marketing Channel rules evaluate the hit to determine which marketing channel should receive attribution credit. Finally, the server performs enrichment — adding geographic data (city, country, DMA from IP address), device/browser details, and time-of-day calculations. All of this processing happens in near real-time.</p>
+
+<h3>Stage 5: Storage & Reporting</h3>
+<p>The fully processed data is stored in Adobe's data warehouse and becomes available in Analysis Workspace, usually within 30-90 seconds of the original user action. At this point, the data can be queried, segmented, visualized, and analyzed. The original raw data is also preserved for Data Warehouse queries, which can access historical data at full granularity. The processed data respects all the configurations defined in the Report Suite settings — variable persistence (eVar expiration), visit definitions, internal URL filters, and other admin settings.</p>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 Critical Exam Distinction</div>
+  <p>The exam frequently tests whether you understand the difference between <strong>source</strong> (where data comes from, Stages 1-3) and <strong>storage</strong> (where data lives in Adobe, Stages 4-5). The tracking code comes FROM URL parameters (source). It is STORED in an eVar (storage). When asked "how is tracking code populated?" — the answer is always about the SOURCE, not the storage.</p>
+</div>
+`,
+
+"aa-report-suites": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Fundamentals</div>
+  <h1>Report Suites</h1>
+  <p class="subtitle">The fundamental data containers in Adobe Analytics that organize and segment your analytics data</p>
+</div>
+<div class="tag-row"><span class="tag key">Foundation</span></div>
+
+<h2>What is a Report Suite?</h2>
+<p>A Report Suite is the fundamental data container in Adobe Analytics. Think of it as a separate database that receives and stores a specific stream of analytics data. Every piece of data collected by Adobe Analytics must be directed to at least one Report Suite. The Report Suite ID (RSID) is specified in the JavaScript tracking code and determines where the collected data lands. Report Suites are completely independent of each other — they have their own variable configurations, processing rules, marketing channel definitions, visit timeout settings, and internal URL filters. Organizations typically create separate Report Suites for different properties (main website vs mobile app), different environments (production vs staging), different brands, or different business units. A common strategy is a "multi-suite tagging" approach where data is sent simultaneously to a global Report Suite (for company-wide analysis) and a property-specific Report Suite (for focused analysis of that property). Understanding Report Suites is important because many exam questions reference them when discussing variable configurations and administrative settings.</p>
+
+<h2>Key Report Suite Settings</h2>
+<table class="data-table">
+<thead><tr><th>Setting</th><th>Purpose</th><th>Exam Relevance</th></tr></thead>
+<tbody>
+<tr><td><strong>Visit Timeout</strong></td><td>How long of inactivity before a new visit starts (default: 30 min)</td><td>Understanding visit definition</td></tr>
+<tr><td><strong>Internal URL Filters</strong></td><td>Domains considered "internal" (not referrals)</td><td>Marketing channel attribution</td></tr>
+<tr><td><strong>Currency</strong></td><td>Currency for revenue metrics</td><td>Low priority</td></tr>
+<tr><td><strong>Timezone</strong></td><td>Timezone for date-based reporting</td><td>Low priority</td></tr>
+<tr><td><strong>Variable Mapping</strong></td><td>eVar/prop naming, enabled events</td><td>High priority — knowing what's configurable</td></tr>
+</tbody>
+</table>
+
+<h2>Virtual Report Suites (VRS)</h2>
+<p>A Virtual Report Suite is a filtered view of a parent Report Suite. Rather than collecting data separately, a VRS applies a persistent segment to an existing Report Suite to create a subset view. For example, if your global Report Suite contains data from US, UK, and India, you could create three VRS instances — one for each country — by applying a geography segment. VRS instances share the underlying data, so they do not count toward data collection limits and do not require separate implementation. They are purely a reporting-level construct. This concept is important for the exam because it tests whether you understand the difference between data collection-level separation (Report Suites) and reporting-level separation (Virtual Report Suites).</p>
+`,
+
+"aa-processing-rules": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Fundamentals</div>
+  <h1>Processing & VISTA Rules</h1>
+  <p class="subtitle">Server-side data transformation rules that modify data before it reaches reports</p>
+</div>
+<div class="tag-row"><span class="tag key">Server-Side</span></div>
+
+<h2>Processing Rules</h2>
+<p>Processing Rules are server-side rules configured in the Adobe Analytics admin interface that can modify incoming data before it is stored and reported. They execute during Stage 4 of the data flow pipeline — after the image request arrives at Adobe's servers but before data is written to the reporting database. Processing Rules are powerful because they let you transform data without changing your website's JavaScript code. Common use cases include mapping context data variables to props and eVars (particularly useful when using Adobe Launch to send data in a standardized context data format), overwriting variable values based on conditions (e.g., if page URL contains "/checkout/" then set eVar5 = "Checkout Flow"), copying one variable to another (e.g., copy s.pageName to prop1 for pathing analysis), and setting variables when specific conditions are met. Processing Rules are non-destructive in the sense that they execute in order from top to bottom, and you can always add new rules. However, they are permanent once applied — you cannot retroactively undo a processing rule. If you make a mistake, you can only fix it going forward. For the exam, understand that Processing Rules are an admin-level feature for data transformation. They run server-side, they are configurable without code changes, and they cannot be applied retroactively to historical data.</p>
+
+<h2>VISTA Rules</h2>
+<p>VISTA (Visitor Identification, Segmentation and Transformation Architecture) rules are more powerful server-side rules that execute BEFORE Processing Rules in the data pipeline. Unlike Processing Rules which you configure in the admin UI, VISTA rules are custom scripts written by Adobe consultants and deployed at the server level. They can perform complex logic like data routing (sending different data to different Report Suites based on conditions), advanced data manipulation that exceeds Processing Rule capabilities, and data filtering (removing or modifying hits before they count). VISTA rules are rarely asked about directly on the exam, but you should know they exist and that they execute before Processing Rules in the pipeline.</p>
+
+<div class="diagram">
+  <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px">Server-Side Processing Order</div>
+  <div class="flow">
+    <div class="flow-box layer1">Data Arrives</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer3">VISTA Rules</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer4">Processing Rules</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer2">Marketing Channels</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer5">Stored in Reports</div>
+  </div>
+</div>
+`,
+
+"aa-props": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Variables & Tracking</div>
+  <h1>Props (Traffic Variables)</h1>
+  <p class="subtitle">Hit-level dimensions with no persistence — perfect for current state and pathing analysis</p>
+</div>
+<div class="tag-row"><span class="tag exam">High Priority</span><span class="tag key">~20% of Exam</span></div>
+
+<h2>Understanding Props</h2>
+<p>Props (short for "properties," also called Traffic Variables or s.propN) are one of the two main custom dimension types in Adobe Analytics. They are designated as s.prop1 through s.prop75, giving you up to 75 custom traffic variables per Report Suite. The defining characteristic of props is that they have ZERO persistence — their value only exists on the exact server call (hit) where they are set, and then immediately disappears. On the very next hit, unless the prop is explicitly set again, it has no value. This non-persistent nature makes props fundamentally different from eVars and determines their use cases entirely.</p>
+
+<p>Because props do not persist, they CANNOT be used for conversion attribution. Conversion events like purchases and form submissions happen on specific hits. If a prop value was set three hits ago (e.g., on the product detail page) but the purchase happens on the confirmation page (a different hit), the prop has no value at the time of purchase and therefore cannot receive credit. This is the single most important thing to understand about props, and it is tested heavily on the exam. Any question about "which variable to use for conversion attribution" — the answer is NEVER a prop.</p>
+
+<p>However, props have one capability that eVars do not: they enable pathing reports. Pathing allows you to use Flow visualizations in Workspace to see the sequence of values — for example, "users went from Home → Products → Cart → Checkout." This makes props ideal for tracking navigation sequences and page flow analysis. Additionally, props support list props, which allow you to send multiple values in a single variable on a single hit (e.g., multiple product categories viewed simultaneously).</p>
+
+<h2>Characteristics Summary</h2>
+<table class="data-table">
+<thead><tr><th>Feature</th><th>Props</th></tr></thead>
+<tbody>
+<tr><td><strong>Persistence</strong></td><td>❌ None — hit-level only</td></tr>
+<tr><td><strong>Conversion Attribution</strong></td><td>❌ Cannot attribute</td></tr>
+<tr><td><strong>Pathing</strong></td><td>✅ Yes — enables Flow reports</td></tr>
+<tr><td><strong>Limit</strong></td><td>75 per Report Suite</td></tr>
+<tr><td><strong>List Support</strong></td><td>✅ Yes — can hold multiple values per hit</td></tr>
+</tbody>
+</table>
+
+<h2>When to Use Props</h2>
+<p><strong>Perfect use cases:</strong> Site section (which part of the site the user is currently on), page type (homepage, product page, category page, checkout), navigation elements, error messages displayed on the current page, form field names, content type classifications.</p>
+<p><strong>Wrong use cases (use eVar instead):</strong> Campaign tracking, internal search terms that should be attributed to later purchases, product finding methods, any scenario where you need to connect an earlier value to a later conversion event.</p>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 Exam Decision Rule</div>
+  <p>If the question asks about <strong>conversion attribution</strong> (connecting a value to a purchase/conversion) → Always eVar, never prop.</p>
+  <p>If the question asks about <strong>pathing</strong> or <strong>navigation flow</strong> → Prop is the correct choice.</p>
+  <p>If the question is ambiguous → Default to eVar (it is more powerful and flexible).</p>
+</div>
+`,
+
+"aa-evars": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Variables & Tracking</div>
+  <h1>eVars (Conversion Variables)</h1>
+  <p class="subtitle">Persistent dimensions that enable conversion attribution — the most powerful and heavily tested variable type</p>
+</div>
+<div class="tag-row"><span class="tag exam">~20% of Exam</span><span class="tag key">Critical</span></div>
+
+<h2>Understanding eVars</h2>
+<p>eVars (short for "conversion variables," also called s.eVarN) are the second major custom dimension type in Adobe Analytics. You have up to 250 eVars per Report Suite (eVar1 through eVar250). The defining characteristic of eVars is PERSISTENCE — once set, an eVar's value continues to exist across subsequent server calls until it either expires (based on a configured expiration setting) or is overwritten by a new value. This persistence is what makes eVars the essential tool for conversion attribution. When a user sets an eVar value early in their session (e.g., by clicking an email campaign link) and then purchases something several pages later, the eVar still holds the campaign value at the time of purchase. This allows Adobe Analytics to attribute the conversion back to the email campaign — something that would be completely impossible with a prop.</p>
+
+<h2>Persistence — The Key Differentiator</h2>
+<p>Let us trace through an example to make persistence concrete. Imagine a user clicks an email campaign link and arrives on your product page. At that moment, JavaScript sets eVar1 = "summer_email_2025". Over the next 10 minutes, the user browses 5 more pages. On each of those subsequent page views, eVar1 STILL has the value "summer_email_2025" — even though it was only explicitly set on the first hit. When the user finally reaches the checkout confirmation page and a purchase event fires, eVar1 is still present with the campaign value. Adobe Analytics therefore records that the "summer_email_2025" campaign should receive credit for this purchase. This entire attribution chain depends on persistence.</p>
+
+<h2>Configuration Settings</h2>
+<p><strong>Allocation (First vs Last Touch):</strong> Determines what happens when an eVar already has a value and a NEW value arrives. "Original Value" (First Touch) keeps the first value and ignores subsequent values. "Most Recent" (Last Touch) overwrites with the newest value. "Linear" distributes credit equally among all values.</p>
+
+<p><strong>Expiration:</strong> Determines how long the eVar's value persists before automatically clearing. Options include: Hit (expires immediately — behaves like a prop), Visit (expires at end of session), Purchase (expires when a purchase event occurs), and time-based options (Day, Week, Month, Quarter, Year, Never). The "Never" option means the value persists until explicitly overwritten by a new value — it can last months or years.</p>
+
+<h2>Instances vs Occurrences</h2>
+<div class="info-card concept">
+  <div class="card-title">🔢 Critical Metric Distinction</div>
+  <p><strong>Instances:</strong> The number of times the eVar was explicitly SET (appeared in the JavaScript call). If a user searches once, Instances = 1.</p>
+  <p><strong>Occurrences:</strong> The number of times the eVar had ANY value (set OR persisting). If the user searches once and then browses 4 more pages, Occurrences = 5 (1 set + 4 persisting).</p>
+  <p>This distinction trips up many exam candidates. Remember: Instances = set counts. Occurrences = total hit counts where value exists.</p>
+</div>
+`,
+
+"aa-props-vs-evars": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Variables & Tracking</div>
+  <h1>Props vs eVars — Complete Comparison</h1>
+  <p class="subtitle">Side-by-side analysis with decision framework for choosing the right variable type</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Critical</span></div>
+
+<table class="data-table">
+<thead><tr><th>Feature</th><th>Props (Traffic Variables)</th><th>eVars (Conversion Variables)</th></tr></thead>
+<tbody>
+<tr><td><strong>Persistence</strong></td><td>❌ None (hit-level only)</td><td>✅ Configurable (visit, purchase, 30 days, never, etc.)</td></tr>
+<tr><td><strong>Conversion Attribution</strong></td><td>❌ Cannot attribute</td><td>✅ Full attribution capability</td></tr>
+<tr><td><strong>Pathing</strong></td><td>✅ Yes (Flow reports)</td><td>❌ No</td></tr>
+<tr><td><strong>Limit</strong></td><td>75 per Report Suite</td><td>250 per Report Suite</td></tr>
+<tr><td><strong>Primary Use</strong></td><td>Current state & navigation</td><td>Attribution & conversion tracking</td></tr>
+<tr><td><strong>Typical Examples</strong></td><td>Site section, page type, error messages</td><td>Campaign, search term, finding method</td></tr>
+<tr><td><strong>Metric Pairing</strong></td><td>Traffic metrics (page views, visits)</td><td>Conversion metrics (events, revenue)</td></tr>
+</tbody>
+</table>
+
+<h2>Decision Framework</h2>
+<div class="info-card warning">
+  <div class="card-title">🎯 How to Choose on the Exam</div>
+  <p><strong>Question 1:</strong> "Do you need to know what VALUE led to a CONVERSION?" → If YES → <strong>eVar</strong></p>
+  <p><strong>Question 2:</strong> "Do you need to see the SEQUENCE/PATH of values?" → If YES → <strong>Prop</strong></p>
+  <p><strong>Rule of thumb:</strong> When in doubt → eVar (it is more powerful and can do everything a prop does except pathing)</p>
+</div>
+
+<h2>Common Exam Scenarios</h2>
+<div class="quiz-card">
+  <div class="q-label">Scenario Question</div>
+  <div class="q-text">A retailer wants to track which internal search terms lead to the most purchases. Which variable type should they use?</div>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">A) Prop — to see all search terms</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'correct')">B) eVar — to attribute purchases to search terms</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">C) Success Event — to count searches</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">D) Classification — to categorize searches</button>
+  <div class="quiz-explain"><strong>Explanation:</strong> The question says "lead to purchases" — this is conversion attribution. The search term must PERSIST from the search page through browsing until the purchase event fires. Only eVars persist. Props would lose the search term value after the search results page, making attribution impossible.</div>
+</div>
+`,
+
+"aa-events": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Variables & Tracking</div>
+  <h1>Success Events (s.events)</h1>
+  <p class="subtitle">Metrics that count conversions and quantify business outcomes</p>
+</div>
+<div class="tag-row"><span class="tag key">Metrics Foundation</span></div>
+
+<h2>Understanding Success Events</h2>
+<p>Success Events (also called Custom Events or simply Events) are the metrics in Adobe Analytics. While dimensions (props and eVars) describe the WHAT (what page, what campaign, what search term), events quantify the HOW MUCH (how many purchases, how much revenue, how many cart additions). Events are configured as s.events in the tracking code and designated as event1 through event1000 in the Admin Console. There are three types of events based on how they count values:</p>
+
+<p><strong>Counter Events:</strong> Simply count occurrences. Each time the event fires, its count increments by 1. Examples include purchases (how many orders), cart additions, form submissions, video starts, and registrations. You set them with just the event name: s.events = "purchase" or s.events = "event5".</p>
+
+<p><strong>Numeric Events:</strong> Accept a specific numeric value that gets added to the total. Used when you need to sum quantities. Example: event10 = "number of items in cart". Set with: s.events = "event10=3" (customer added 3 items).</p>
+
+<p><strong>Currency Events:</strong> Accept a currency value. Revenue is the most common example. Set with: s.events = "purchase" and s.products = ";ProductName;1;89.99" — the revenue value comes from the products variable, not the event directly.</p>
+
+<h2>Built-in vs Custom Events</h2>
+<p>Adobe Analytics has several built-in events that have special behavior: <strong>purchase</strong> (deduplicated by Order ID, triggers revenue calculation from s.products), <strong>prodView</strong> (product view), <strong>scAdd</strong> (cart addition), <strong>scRemove</strong> (cart removal), <strong>scCheckout</strong> (checkout initiation). These built-in events have special integration with the s.products variable. Beyond built-in events, you have up to 1000 custom events (event1 through event1000) for tracking any business action you need.</p>
+
+<h2>Event Serialization</h2>
+<p>Event serialization prevents duplicate counting. By assigning a unique serial ID to each event, Adobe Analytics will only count the first occurrence of that ID and ignore duplicates. This is critical for scenarios where a user might refresh a confirmation page — without serialization, each refresh would count as an additional purchase. Set with: s.events = "purchase:ORDER12345" where ORDER12345 is the unique serializer.</p>
+`,
+
+"aa-tracking-code": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Variables & Tracking</div>
+  <h1>Tracking Code & Campaigns</h1>
+  <p class="subtitle">How marketing campaign data flows from URLs to attribution reports</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Favorite</span><span class="tag key">Source vs Storage</span></div>
+
+<h2>The Complete Campaign Tracking Flow</h2>
+<p>Tracking code is one of the most tested topics because it perfectly illustrates the source-vs-storage distinction that Adobe loves to test. Here is the complete end-to-end flow of how campaign data gets from a marketing email into your Adobe Analytics reports:</p>
+
+<p><strong>Step 1 — URL Creation:</strong> A marketer creates a campaign link with a tracking parameter appended to the URL. For example: https://www.example.com/summer-sale?cid=email_summer_2025. The "cid" parameter is a commonly used query string parameter name (though it could be anything — utm_campaign, campaign, s_cid, etc.).</p>
+
+<p><strong>Step 2 — User Click:</strong> The customer clicks the link in their email, which opens the browser and loads the URL including the query parameter. This is the SOURCE of the tracking code — it comes from the URL.</p>
+
+<p><strong>Step 3 — JavaScript Extraction:</strong> AppMeasurement.js (or Adobe Launch) includes a utility function called getQueryParam() that reads the URL and extracts the value of the specified parameter. It takes the value "email_summer_2025" from ?cid=email_summer_2025.</p>
+
+<p><strong>Step 4 — Variable Setting:</strong> The JavaScript sets the campaign variable: s.campaign = "email_summer_2025". This value is included in the image request sent to Adobe.</p>
+
+<p><strong>Step 5 — Persistence:</strong> The tracking code value persists according to the eVar expiration setting configured for the campaign variable. Typically it persists until a purchase event occurs or until a specified time period (like 30 days) elapses.</p>
+
+<p><strong>Step 6 — Attribution:</strong> When the user eventually converts (makes a purchase, submits a form, etc.), the persisted tracking code value is present on the conversion hit, allowing Adobe Analytics to attribute the conversion to the "email_summer_2025" campaign.</p>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 THE Exam Trap</div>
+  <p><strong>Question:</strong> "How is the tracking code dimension populated?"</p>
+  <p>❌ <strong>Wrong:</strong> "eVar variable" — This is WHERE it's STORED, not how it's populated</p>
+  <p>❌ <strong>Wrong:</strong> "v0 query parameter" — This is Adobe's internal server-side format</p>
+  <p>❌ <strong>Wrong:</strong> "Processing rules" — These can modify but don't originate the data</p>
+  <p>✅ <strong>Correct:</strong> "URL query string parameters" — This is the actual SOURCE</p>
+</div>
+`,
+
+"aa-hit-types": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Variables & Tracking</div>
+  <h1>s.t() vs s.tl() — Hit Types</h1>
+  <p class="subtitle">Understanding the two types of server calls and their impact on page view metrics</p>
+</div>
+<div class="tag-row"><span class="tag key">Important Distinction</span></div>
+
+<h2>The Two Tracking Functions</h2>
+<p>Adobe Analytics has exactly two functions for sending data to its servers: s.t() for page views and s.tl() for link tracking. Understanding the difference between these two functions is critical because they behave differently with respect to the Page Views metric and have different use cases. Every server call (also called a "hit" or "image request") in Adobe Analytics is triggered by one of these two functions. There is no third option.</p>
+
+<table class="data-table">
+<thead><tr><th>Feature</th><th>s.t() — Page View Track</th><th>s.tl() — Link Track</th></tr></thead>
+<tbody>
+<tr><td><strong>Purpose</strong></td><td>Track page loads / screen views</td><td>Track clicks, downloads, interactions</td></tr>
+<tr><td><strong>Page Views Metric</strong></td><td>✅ Increments page views by 1</td><td>❌ Does NOT increment page views</td></tr>
+<tr><td><strong>When to Use</strong></td><td>Full page loads, SPA route changes</td><td>Button clicks, file downloads, video plays, outbound links</td></tr>
+<tr><td><strong>s.pageName Required?</strong></td><td>Yes (strongly recommended)</td><td>No (optional)</td></tr>
+</tbody>
+</table>
+
+<h2>s.tl() Link Types</h2>
+<p>The s.tl() function takes three parameters: s.tl(linkObject, linkType, linkName). The linkType parameter categorizes the interaction:</p>
+<div class="code-block">s.tl(this, 'o', 'Button Click');   // 'o' = Custom/Other link
+s.tl(this, 'd', 'PDF Download');   // 'd' = Download link
+s.tl(this, 'e', 'Exit Link');      // 'e' = Exit link (leaving site)</div>
+
+<div class="quiz-card">
+  <div class="q-label">Exam-Style Question</div>
+  <div class="q-text">A user clicks a PDF download link on your website. Does the Page Views metric increase?</div>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">A) Yes — any interaction counts as a page view</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'correct')">B) No — s.tl() does not increment page views</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">C) Yes — downloads are tracked as special page views</button>
+  <button class="quiz-option" onclick="checkQuiz(this,'wrong')">D) Depends on the Report Suite configuration</button>
+  <div class="quiz-explain"><strong>Explanation:</strong> Download links are tracked with s.tl(this, 'd', 'Download Name'). The s.tl() function creates a server call but specifically does NOT increment the Page Views metric. Only s.t() page view tracking calls increment Page Views. This is a fundamental distinction — not all server calls are page views.</div>
+</div>
+`,
+
+"aa-seg-containers": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Segmentation</div>
+  <h1>Segment Containers</h1>
+  <p class="subtitle">The three-level container hierarchy that determines the scope of your segments</p>
+</div>
+<div class="tag-row"><span class="tag exam">High Priority</span><span class="tag key">~19% of Exam</span></div>
+
+<h2>Container Hierarchy</h2>
+<p>Adobe Analytics segments use a container hierarchy that determines the SCOPE of the data returned. This is one of the most misunderstood and heavily tested concepts on the exam. There are three containers, each nested within the next like Russian dolls:</p>
+
+<div class="diagram">
+  <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px">Container Scope: HIT ⊂ VISIT ⊂ VISITOR</div>
+  <div class="flow">
+    <div class="flow-box layer1" style="padding:20px 30px">VISITOR<br><small>All data, lifetime</small></div>
+    <div class="flow-arrow">⊃</div>
+    <div class="flow-box layer3" style="padding:16px 24px">VISIT<br><small>All hits in session</small></div>
+    <div class="flow-arrow">⊃</div>
+    <div class="flow-box layer5" style="padding:12px 18px">HIT<br><small>Single event</small></div>
+  </div>
+</div>
+
+<h3>Hit Container (Smallest Scope)</h3>
+<p>The Hit container is the most restrictive — it returns ONLY the specific server calls (hits) that match the condition. If your condition is "Page = Cart," a Hit container returns only the actual cart page view hits. It does not include the homepage view, the product page view, or any other hit in the same visit — just the cart page views themselves. Use this when you want to analyze specific events in isolation: "Show me only the cart page views," "Show me only purchase hits," "Show me only video start events." The result set is always the smallest of the three containers because it returns only exact matches.</p>
+
+<h3>Visit Container (Medium Scope)</h3>
+<p>The Visit container returns ALL hits within visits that match the condition at least once. This is the crucial distinction — it expands the scope from matching hits to complete sessions. If your condition is "Page = Cart" with a Visit container, you get all hits from every visit where the cart page was viewed at least once. This means you also get the homepage views, product views, checkout views, and every other page viewed in those qualifying visits. The same condition that returned 2,000 hits in a Hit container might return 15,000 hits in a Visit container (because each qualifying visit averages 7-8 page views). Use this when you want to understand complete sessions: "Show me all pages viewed in visits that included a cart view."</p>
+
+<h3>Visitor Container (Largest Scope)</h3>
+<p>The Visitor container returns ALL data for visitors who EVER matched the condition, across ALL their visits, past and future (within the date range). If your condition is "Page = Cart" with a Visitor container, you get the complete lifetime history of every person who ever viewed the cart page — including visits where they did not view the cart at all. That same condition might return 50,000 hits because it includes all visits from qualifying visitors. Use this for lifetime analysis: "Show me everything that people who viewed the cart page have ever done on our site."</p>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 Exam Pattern</div>
+  <p><strong>Q:</strong> A segment uses a VISITOR container with condition "Revenue > 0". What data is included?</p>
+  <p><strong>Wrong:</strong> Only the hits where revenue occurred</p>
+  <p><strong>Correct:</strong> ALL data for anyone who EVER generated revenue — including non-revenue visits, browsing history, everything. The VISITOR container returns the complete lifetime data for qualifying individuals.</p>
+</div>
+`,
+
+"aa-seg-logic": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Segmentation</div>
+  <h1>AND / OR / THEN Logic</h1>
+  <p class="subtitle">Boolean operators that combine segment conditions — understanding their impact on result size</p>
+</div>
+<div class="tag-row"><span class="tag key">Logic Operators</span></div>
+
+<h2>The Three Operators</h2>
+<p><strong>AND (Intersection):</strong> Both conditions must be true simultaneously. AND is restrictive — it makes your segment SMALLER because fewer people/visits/hits will meet both conditions at the same time. Example: "Mobile Users" AND "Purchasers" = only people who are BOTH mobile users AND have made a purchase. If you have 6,000 mobile users and 500 purchasers, the AND result might be only 180 (those who purchased on mobile).</p>
+
+<p><strong>OR (Union):</strong> Either condition can be true. OR is inclusive — it makes your segment LARGER because people/visits/hits only need to meet one of the conditions. Example: "Mobile Users" OR "Tablet Users" = anyone using EITHER device. If you have 6,000 mobile users and 2,000 tablet users (with some overlap), the OR result is approximately 8,000.</p>
+
+<p><strong>THEN (Sequential):</strong> Conditions must occur in chronological order. THEN enables sequential segmentation — finding patterns where users follow a specific sequence of actions. Example: "Page = Homepage" THEN "Page = Product Detail" THEN "Purchase Event" = users who followed this exact sequence. The THEN operator is unique to sequential segments and is one of Adobe Analytics' most powerful segmentation capabilities.</p>
+
+<div class="info-card concept">
+  <div class="card-title">📐 Size Impact Rule</div>
+  <p><strong>AND</strong> = Smaller result (more restrictive — both must be true)</p>
+  <p><strong>OR</strong> = Larger result (more inclusive — either can be true)</p>
+  <p><strong>THEN</strong> = Smallest result (most restrictive — must follow specific order)</p>
+</div>
+`,
+
+"aa-seg-sequential": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Segmentation</div>
+  <h1>Sequential Segmentation</h1>
+  <p class="subtitle">Finding users who follow specific behavioral sequences using the THEN operator</p>
+</div>
+<div class="tag-row"><span class="tag key">Advanced</span></div>
+
+<h2>How Sequential Segments Work</h2>
+<p>Sequential segments use the THEN operator to define a required order of events. Unlike AND (where both conditions must be true at the same time) or OR (where either can be true), THEN requires that Condition A occurs BEFORE Condition B in chronological order. This is incredibly powerful for analyzing funnel progression, identifying users who follow specific conversion paths, or finding people who exhibit particular behavioral patterns over time. Sequential segments can span across hits within a single visit, or across visits within a single visitor's lifetime, depending on the container level used.</p>
+
+<p>Example: "Page = Homepage" THEN "Page = Product Detail" THEN "Event = Purchase" finds visitors who started on the homepage, later viewed a product detail page, and eventually purchased — in that specific order. The events do not have to be consecutive (there can be other pages viewed between them), but they must occur in the specified sequence.</p>
+
+<h2>Time Constraints</h2>
+<p>You can add time constraints to sequential segments using "within" and "after" operators. "Within 7 days" means the entire sequence must complete within a 7-day window. "After 3 days" means there must be at least a 3-day gap between steps. These time constraints make sequential segments even more powerful for identifying specific behavioral patterns — like users who viewed a product page and then purchased within 24 hours (impulse buyers) vs those who took more than 7 days (considered purchasers).</p>
+`,
+
+"aa-workspace": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Reporting & Workspace</div>
+  <h1>Analysis Workspace</h1>
+  <p class="subtitle">The primary analysis interface — powerful drag-and-drop environment for building custom reports</p>
+</div>
+<div class="tag-row"><span class="tag exam">38% of Exam</span><span class="tag key">Most Tested Area</span></div>
+
+<h2>Workspace Components</h2>
+<p>Analysis Workspace is Adobe Analytics' primary analysis interface and accounts for the largest portion of the exam (within the 38% Reporting section). It replaced the legacy Reports & Analytics interface and provides a flexible, drag-and-drop environment for building custom analyses. Understanding Workspace components and how they interact is essential for the exam. The interface consists of three main areas: the component rail (left panel with dimensions, metrics, segments, and date ranges), the canvas (where you build your analysis with panels and visualizations), and the settings (configuration options for each component).</p>
+
+<p><strong>Freeform Tables:</strong> The most versatile and commonly used component. You drag dimensions into rows and metrics into columns to create custom cross-tabulation reports. Freeform tables support unlimited nesting (breaking down dimensions within dimensions), inline segmentation (drag a segment onto a specific row), and dynamic sorting. Nearly every analysis starts with a Freeform Table.</p>
+
+<p><strong>Panels:</strong> Containers for groups of visualizations within a single project. Each panel can have its own date range and segments, allowing you to compare different time periods or audience segments side by side within the same project. Special panel types include Attribution Panel (compare attribution models), Segment Comparison Panel (find statistical differences between segments), and Analytics for Target panel (A/B test integration).</p>
+
+<p><strong>Visualizations:</strong> Charts and graphics that present data visually. Available types include Line, Bar, Stacked Bar, Area, Donut, Treemap, Scatter, Histogram, Horizontal Bar, Fallout, Flow, Cohort Table, Venn Diagram, Summary Number, Summary Change, Map, and Text. Each visualization type serves specific analytical purposes, and the exam tests whether you know which visualization to use for different business questions.</p>
+
+<p><strong>Components (Left Rail):</strong> Dimensions (orange), Metrics (green), Segments (blue), and Date Ranges (purple). These are drag-and-drop building blocks. Knowing the color coding helps with exam questions that reference component types by their visual indicator.</p>
+`,
+
+"aa-viz-fallout": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Reporting & Workspace</div>
+  <h1>Fallout Visualization</h1>
+  <p class="subtitle">Sequential funnel analysis showing conversion and drop-off rates at each step</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Favorite</span><span class="tag key">Must Know</span></div>
+
+<h2>What is Fallout?</h2>
+<p>The Fallout visualization is one of the most tested visualizations on the AD0-E212 exam. It shows a pre-defined sequential journey with conversion rates and drop-off percentages at each step. You define the steps (touchpoints) in a specific order, and Fallout shows you what percentage of users successfully progressed from one step to the next, and what percentage "fell out" (abandoned the journey). This makes it the perfect tool for analyzing any sequential process: checkout funnels, registration flows, multi-step forms, content consumption sequences, or any scenario where users should follow a defined path.</p>
+
+<h2>Fallout Example — Checkout Funnel</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Checkout Funnel Analysis</div>
+  <p>Step 1: Cart Page → 10,000 visitors (100%)</p>
+  <p>&nbsp;&nbsp;&nbsp;⬇ 40% drop off (4,000 leave)</p>
+  <p>Step 2: Shipping Info → 6,000 visitors (60%)</p>
+  <p>&nbsp;&nbsp;&nbsp;⬇ 25% drop off (1,500 leave)</p>
+  <p>Step 3: Payment → 4,500 visitors (45%)</p>
+  <p>&nbsp;&nbsp;&nbsp;⬇ 11% drop off (500 leave)</p>
+  <p>Step 4: Order Complete → 4,000 visitors (40% total conversion)</p>
+  <p><strong>Insight:</strong> The biggest drop-off is at Cart → Shipping (40%). This suggests the shipping page is the primary bottleneck and should be the focus of optimization efforts (simplify the form, add guest checkout, reduce required fields).</p>
+</div>
+
+<h2>Fallout vs Flow</h2>
+<table class="data-table">
+<thead><tr><th>Feature</th><th>Fallout</th><th>Flow</th></tr></thead>
+<tbody>
+<tr><td><strong>Purpose</strong></td><td>Sequential journey with defined steps</td><td>Path exploration and discovery</td></tr>
+<tr><td><strong>Steps</strong></td><td>Pre-defined by analyst</td><td>Discovered from data</td></tr>
+<tr><td><strong>Shows</strong></td><td>Conversion & drop-off rates</td><td>All navigation paths</td></tr>
+<tr><td><strong>Best For</strong></td><td>Checkout funnels, registration flows, forms</td><td>Discovering navigation patterns, finding unexpected paths</td></tr>
+<tr><td><strong>Key Metric</strong></td><td>Conversion rate between steps</td><td>Path volume and branching</td></tr>
+</tbody>
+</table>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 The Exam Question Pattern</div>
+  <p><strong>Q:</strong> "Which visualization shows a sequential customer journey with drop-off rates?"</p>
+  <p>Keywords to spot: "sequential," "customer journey," "drop-off," "conversion funnel," "step-by-step"</p>
+  <p><strong>Answer: FALLOUT</strong> — always. Flow is for exploration, Fallout is for sequential funnels.</p>
+</div>
+`,
+
+"aa-viz-flow": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Reporting & Workspace</div>
+  <h1>Flow Visualization</h1>
+  <p class="subtitle">Path exploration — discovering how users navigate through your site</p>
+</div>
+<div class="tag-row"><span class="tag key">Path Analysis</span></div>
+
+<h2>Understanding Flow</h2>
+<p>The Flow visualization shows the actual navigation paths users take through your site. Unlike Fallout (where you pre-define the steps), Flow discovers paths from the data itself. You specify a starting point (or an intermediate point) and Flow shows you all the paths leading to and from that point, including branching, looping, and exit points. This makes Flow ideal for exploratory analysis — understanding WHERE users actually go rather than measuring how well they follow a pre-defined funnel. Flow visualizations are powered by props (traffic variables) because props support pathing analysis. You can start with any dimension value (like a specific page) and see the previous pages (entry paths) and next pages (exit paths) for users who viewed that page. Flow is best used when you want to answer questions like: "Where do users go after viewing the product page?", "What are the most common paths to the checkout page?", "Where do users typically enter and exit the site?", or "Are there unexpected navigation patterns we should optimize for?" The Flow visualization in Workspace is highly interactive — you can click on any branch to expand it, filter by segment, and adjust the number of visible paths.</p>
+`,
+
+"aa-viz-cohort": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Reporting & Workspace</div>
+  <h1>Cohort Tables</h1>
+  <p class="subtitle">Track groups of users over time to understand retention and engagement patterns</p>
+</div>
+<div class="tag-row"><span class="tag key">Retention Analysis</span></div>
+
+<h2>What is a Cohort Table?</h2>
+<p>A Cohort Table groups users into cohorts based on a shared characteristic (typically the date they first performed an action) and then tracks their behavior over subsequent time periods. This is the standard tool for retention analysis and repeat behavior measurement. For example, you could create a cohort of all users who made their first purchase in January, then track what percentage of them returned to purchase in February, March, April, etc. Each row represents a different cohort (grouped by their inclusion date), and each column represents a subsequent time period. The cells show the percentage of users from that cohort who were active (or who completed a specific action) in that subsequent period. Cohort Tables are valuable for understanding user lifecycle, measuring the effectiveness of acquisition campaigns over time (do users acquired from Campaign A have better retention than Campaign B?), and identifying trends in user engagement.</p>
+`,
+
+"aa-viz-venn": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Reporting & Workspace</div>
+  <h1>Venn & Histogram Visualizations</h1>
+  <p class="subtitle">Overlap analysis and distribution analysis tools</p>
+</div>
+<div class="tag-row"><span class="tag tip">Supporting Visualizations</span></div>
+
+<h2>Venn Diagram</h2>
+<p>The Venn visualization in Workspace shows the overlap between up to 3 segments. It visually displays how many users belong to one segment only, how many belong to multiple segments, and the exact overlap counts. This is useful for understanding audience composition — for example, showing the overlap between "Mobile Users," "Email Subscribers," and "Purchasers" to see how many people are in all three groups. For the exam, know that Venn diagrams are used for segment overlap analysis and can compare up to 3 segments.</p>
+
+<h2>Histogram</h2>
+<p>The Histogram visualization shows the distribution of a metric across buckets. For example, a histogram of "Revenue per Visit" would show how many visits generated $0-$10, $10-$50, $50-$100, $100+, etc. This helps identify the shape of your data distribution — is it normally distributed? Are there outliers? Is it heavily skewed toward low values? Histograms are useful for understanding the distribution patterns of metrics like session duration, pages per visit, order value, and any other numeric metric.</p>
+`,
+
+"aa-attr-models": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Attribution & Metrics</div>
+  <h1>Attribution Models</h1>
+  <p class="subtitle">Understanding how credit for conversions is distributed across touchpoints</p>
+</div>
+<div class="tag-row"><span class="tag exam">Heavily Tested</span><span class="tag key">Critical</span></div>
+
+<h2>All Attribution Models</h2>
+<p>Attribution models determine how conversion credit is distributed when a user interacts with multiple marketing touchpoints before converting. This is one of the most debated topics in digital analytics, and Adobe Analytics provides multiple models to address different business perspectives. Understanding each model, when to use it, and how the math works is essential for the exam.</p>
+
+<table class="data-table">
+<thead><tr><th>Model</th><th>Credit Distribution</th><th>Best Use Case</th></tr></thead>
+<tbody>
+<tr><td><strong>First Touch</strong></td><td>100% to the first touchpoint</td><td>Measuring awareness & acquisition effectiveness</td></tr>
+<tr><td><strong>Last Touch</strong></td><td>100% to the last touchpoint</td><td>Measuring conversion closing effectiveness</td></tr>
+<tr><td><strong>Linear</strong></td><td>Equal credit to all touchpoints</td><td>When all touchpoints are equally valuable</td></tr>
+<tr><td><strong>Time Decay</strong></td><td>More credit to recent touchpoints</td><td>When recency is most important</td></tr>
+<tr><td><strong>U-Shaped</strong></td><td>40% first, 40% last, 20% split across middle</td><td>When first and last interactions matter most</td></tr>
+<tr><td><strong>Participation</strong></td><td>100% to EACH touchpoint (total > 100%)</td><td>When you want to see every touchpoint's role</td></tr>
+</tbody>
+</table>
+
+<h2>Worked Example</h2>
+<p>Consider this journey: <strong>Google Search → Email → Direct → Purchase ($100)</strong></p>
+<div class="info-card concept">
+  <div class="card-title">📊 Attribution Math</div>
+  <p><strong>First Touch:</strong> Google $100, Email $0, Direct $0</p>
+  <p><strong>Last Touch:</strong> Google $0, Email $0, Direct $100</p>
+  <p><strong>Linear:</strong> Google $33.33, Email $33.33, Direct $33.33</p>
+  <p><strong>U-Shaped:</strong> Google $40, Email $20, Direct $40</p>
+  <p><strong>Time Decay:</strong> Google ~$15, Email ~$30, Direct ~$55 (exact values depend on decay rate)</p>
+  <p><strong>Participation:</strong> Google $100, Email $100, Direct $100 (total = $300, but each channel gets full credit)</p>
+</div>
+`,
+
+"aa-calc-metrics": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Attribution & Metrics</div>
+  <h1>Calculated Metrics</h1>
+  <p class="subtitle">Essential formulas to memorize for the exam</p>
+</div>
+<div class="tag-row"><span class="tag exam">Memorize</span><span class="tag key">Formula Sheet</span></div>
+
+<h2>Essential Formulas</h2>
+<table class="data-table">
+<thead><tr><th>Metric</th><th>Formula</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Conversion Rate</strong></td><td><span class="formula">(Orders ÷ Visits) × 100</span></td><td>(250 ÷ 10,000) × 100 = 2.5%</td></tr>
+<tr><td><strong>Bounce Rate</strong></td><td><span class="formula">(Single Page Visits ÷ Total Visits) × 100</span></td><td>(450 ÷ 1,000) × 100 = 45%</td></tr>
+<tr><td><strong>Avg Order Value (AOV)</strong></td><td><span class="formula">Revenue ÷ Orders</span></td><td>$50,000 ÷ 500 = $100</td></tr>
+<tr><td><strong>Cart Abandonment Rate</strong></td><td><span class="formula">((Cart Adds - Checkouts) ÷ Cart Adds) × 100</span></td><td>((1,200 - 450) ÷ 1,200) × 100 = 62.5%</td></tr>
+<tr><td><strong>Pages Per Visit</strong></td><td><span class="formula">Page Views ÷ Visits</span></td><td>15,000 ÷ 3,000 = 5</td></tr>
+<tr><td><strong>Revenue Per Visitor</strong></td><td><span class="formula">Revenue ÷ Unique Visitors</span></td><td>$50,000 ÷ 5,000 = $10</td></tr>
+</tbody>
+</table>
+`,
+
+"aa-marketing-channels": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Attribution & Metrics</div>
+  <h1>Marketing Channels</h1>
+  <p class="subtitle">Classifying traffic sources to understand which channels drive engagement and conversions</p>
+</div>
+<div class="tag-row"><span class="tag key">Attribution</span></div>
+
+<h2>How Marketing Channels Work</h2>
+<p>Marketing Channels in Adobe Analytics classify how visitors arrive at your site. Rather than looking at raw referrer URLs, Marketing Channel rules categorize traffic into meaningful business channels like Paid Search, Organic Search, Email, Social, Display, Direct, Affiliate, and others. These rules are configured in the Admin Console and evaluate each incoming hit to determine which marketing channel should receive credit. The rules are evaluated in order (first match wins), and they look at various data points including the referring URL, query string parameters, and whether the visitor is new or returning. The key distinction on the exam is understanding that Marketing Channel rules evaluate the SOURCE of the visit (how the visitor arrived), and they execute server-side during Stage 4 of the data flow pipeline. This is different from campaign tracking (which uses URL parameters and eVars) — Marketing Channels provide a higher-level classification of all traffic into business-meaningful categories.</p>
+`,
+
+"aa-classifications": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Admin & Implementation</div>
+  <h1>Classifications (SAINT)</h1>
+  <p class="subtitle">Enriching dimension values with additional metadata for deeper analysis</p>
+</div>
+<div class="tag-row"><span class="tag key">Data Enrichment</span></div>
+
+<h2>Understanding Classifications</h2>
+<p>Classifications (historically called SAINT — SiteCatalyst Attribute Importing and Naming Tool) allow you to add metadata to your existing dimension values. Think of classifications as a lookup table that enriches raw tracking values with human-readable labels, categories, and additional attributes. For example, your tracking code might collect values like "em_2025_summer_shoes_us" — a code that is meaningful to the marketing team but not immediately understandable. Using classifications, you can map this code to: Campaign Name = "Summer Shoe Sale 2025", Channel = "Email", Region = "US", Product Category = "Footwear", Creative = "Version A". Once classified, you can report on these higher-level attributes instead of the raw codes — viewing revenue by Channel or Region rather than by cryptic tracking codes. Classifications can be uploaded manually via CSV files, through the Classification Rule Builder (which applies regex-based rules automatically), or through automated FTP imports. For the exam, the key concept is that classifications ADD metadata to existing values — they do not change the underlying collected data.</p>
+`,
+
+"aa-data-feeds": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Admin & Implementation</div>
+  <h1>Data Feeds & Data Warehouse</h1>
+  <p class="subtitle">Exporting raw and aggregated data for external analysis</p>
+</div>
+<div class="tag-row"><span class="tag key">Data Export</span></div>
+
+<h2>Data Feeds</h2>
+<p>Data Feeds export the raw, hit-level data from Adobe Analytics. Every single server call is included with all its variables, timestamps, and metadata. This data is delivered as flat files (TSV format) to an FTP or cloud storage location on a scheduled basis. Data Feeds are used by organizations that want to bring Adobe Analytics data into their own data warehouse, data lake, or BI tools for advanced analysis that goes beyond what Analysis Workspace can provide. The files contain one row per hit and include all standard and custom variables. This is the most granular export option available.</p>
+
+<h2>Data Warehouse</h2>
+<p>Data Warehouse is a reporting tool for requesting large, aggregated data exports. Unlike Analysis Workspace (which has row limits and is optimized for interactive analysis), Data Warehouse can process unlimited rows and export the results as CSV or Tableau Data Extract (TDE) files. Data Warehouse requests are queued and processed asynchronously — they may take minutes to hours depending on the data volume and complexity. Use Data Warehouse when you need complete, unsampled data for a specific query that exceeds Workspace's capabilities.</p>
+`,
+
+"aa-virtual-report-suites": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Admin & Implementation</div>
+  <h1>Virtual Report Suites</h1>
+  <p class="subtitle">Filtered views of existing Report Suites for role-based or region-based reporting</p>
+</div>
+<div class="tag-row"><span class="tag key">Admin Feature</span></div>
+
+<h2>Virtual Report Suite Concept</h2>
+<p>A Virtual Report Suite (VRS) applies a persistent segment to an existing Report Suite to create a filtered view of the data. The VRS does not store data separately — it dynamically applies its segment filter whenever someone queries it. This means VRS instances are lightweight, do not increase data collection costs, and do not require any implementation changes. They are purely a reporting-level construct. Common use cases include: creating region-specific views (US VRS, EMEA VRS, APAC VRS from a global Report Suite), creating team-specific views (Marketing VRS with only marketing-relevant dimensions visible, Product VRS with only product engagement data), and creating environment-specific views (removing internal traffic or bot traffic from a production Report Suite). VRS can also have their own curated component lists — you can restrict which dimensions, metrics, and segments are visible in the VRS, simplifying the interface for users who only need a subset of available components.</p>
+`,
+
+"aa-anomaly-detection": `
+<div class="content-header">
+  <div class="breadcrumb">Adobe Analytics <span class="sep">›</span> Admin & Implementation</div>
+  <h1>Anomaly Detection & Intelligent Alerts</h1>
+  <p class="subtitle">AI-powered detection of unusual patterns in your data</p>
+</div>
+<div class="tag-row"><span class="tag tip">AI/ML Feature</span></div>
+
+<h2>Anomaly Detection</h2>
+<p>Anomaly Detection is an AI/ML feature powered by Adobe Sensei that automatically identifies statistically significant deviations in your data. When enabled on a metric in a Freeform Table, it calculates an expected range based on historical patterns (seasonality, trends, day-of-week patterns) and flags data points that fall outside the expected confidence interval. A green band shows the expected range, and data points outside this band are highlighted as anomalies. This eliminates the need to manually monitor metrics for unusual changes — the system does it automatically. Anomaly Detection uses advanced statistical models that account for day-of-week patterns, seasonal trends, and growth trends. It is available on any daily-granularity metric in Analysis Workspace.</p>
+
+<h2>Intelligent Alerts</h2>
+<p>Intelligent Alerts build on Anomaly Detection by allowing you to set up automated notifications when anomalies occur or when specific metric thresholds are crossed. You can create alerts like "Notify me when daily revenue drops more than 20% below expected," "Alert when bounce rate exceeds 60%," or "Notify when conversion rate is anomalous." Alerts can be delivered via email and can include multiple conditions combined with AND/OR logic.</p>
+`,
+
+// ====================== CJA CONTENT ======================
+
+"cja-exam-details": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Exam Overview</div>
+  <h1>AD0-E608 Exam Details & Structure</h1>
+  <p class="subtitle">Complete guide to the Customer Journey Analytics Business Practitioner Professional certification</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Critical</span><span class="tag key">Must Know First</span></div>
+
+<div class="info-card exam-info">
+  <div class="card-title">📋 Exam Specifications</div>
+  <table class="data-table">
+  <tr><th style="width:200px">Parameter</th><th>Detail</th></tr>
+  <tr><td><strong>Exam Code</strong></td><td>AD0-E608</td></tr>
+  <tr><td><strong>Full Name</strong></td><td>Adobe Customer Journey Analytics Business Practitioner Professional</td></tr>
+  <tr><td><strong>Total Questions</strong></td><td>50 multiple-choice questions</td></tr>
+  <tr><td><strong>Duration</strong></td><td>100 minutes</td></tr>
+  <tr><td><strong>Passing Score</strong></td><td>31 out of 50 (62%)</td></tr>
+  <tr><td><strong>Cost</strong></td><td>$125 USD</td></tr>
+  <tr><td><strong>Delivery</strong></td><td>Online proctored or test center</td></tr>
+  <tr><td><strong>Prerequisites</strong></td><td>6+ months CJA experience recommended</td></tr>
+  <tr><td><strong>Question Types</strong></td><td>Multiple choice (single answer & multiple select — "Select two")</td></tr>
+  </table>
+</div>
+
+<h2>Exam Blueprint — Section Weights</h2>
+<table class="data-table">
+<thead><tr><th>Section</th><th>Weight</th><th>~Questions</th><th>Key Topics</th></tr></thead>
+<tbody>
+<tr><td><strong>Components</strong></td><td>30%</td><td>~15</td><td>Filters, calculated metrics, dimensions, derived fields, date ranges</td></tr>
+<tr><td><strong>Reporting</strong></td><td>32%</td><td>~16</td><td>Workspace visualizations, data views, panels, Freeform tables</td></tr>
+<tr><td><strong>Distribution</strong></td><td>12%</td><td>~6</td><td>Sharing projects, scheduling reports, export formats (CSV, PDF)</td></tr>
+<tr><td><strong>Data Analysis</strong></td><td>26%</td><td>~13</td><td>Attribution models, cross-channel analysis, exploratory analysis, filters</td></tr>
+</tbody>
+</table>
+
+<h2>Key Differences from AA Exam</h2>
+<p>The CJA exam focuses heavily on understanding the 4-layer architecture (Schema → Dataset → Connection → Data View) and knowing WHAT is configured WHERE. Approximately 30-40% of questions test this "where do you configure X?" pattern. The exam also emphasizes CJA-specific terminology — using "Filter" instead of "Segment," "Person" instead of "Visitor," "Session" instead of "Visit," and "Event" instead of "Hit." Using AA terminology in your answers can lead to incorrect selections. The exam also includes "select two" questions where you must choose exactly two correct answers from four options — these require careful reading and consideration.</p>
+`,
+
+"cja-cja-vs-aa": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Exam Overview</div>
+  <h1>CJA vs Adobe Analytics</h1>
+  <p class="subtitle">Understanding the fundamental differences between the two platforms</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Critical</span><span class="tag key">Foundation</span></div>
+
+<table class="data-table">
+<thead><tr><th>Feature</th><th>Adobe Analytics (AA)</th><th>Customer Journey Analytics (CJA)</th></tr></thead>
+<tbody>
+<tr><td><strong>Foundation</strong></td><td>Standalone product</td><td>Requires Adobe Experience Platform (AEP)</td></tr>
+<tr><td><strong>Data Sources</strong></td><td>Adobe tags only (web/mobile SDK)</td><td>ANY source via AEP (CRM, POS, call center, etc.)</td></tr>
+<tr><td><strong>Channels</strong></td><td>Single channel (web OR mobile)</td><td>Cross-channel (web + mobile + store + call + email unified)</td></tr>
+<tr><td><strong>Custom Variables</strong></td><td>Limited (75 props, 250 eVars)</td><td>Unlimited (any schema field)</td></tr>
+<tr><td><strong>Segment Term</strong></td><td>Segment</td><td>Filter</td></tr>
+<tr><td><strong>Container: Smallest</strong></td><td>Hit</td><td>Event</td></tr>
+<tr><td><strong>Container: Medium</strong></td><td>Visit</td><td>Session</td></tr>
+<tr><td><strong>Container: Largest</strong></td><td>Visitor</td><td>Person</td></tr>
+<tr><td><strong>Data Container</strong></td><td>Report Suite</td><td>Connection</td></tr>
+<tr><td><strong>Report Config</strong></td><td>Report Suite settings</td><td>Data View</td></tr>
+<tr><td><strong>Identity</strong></td><td>Cookie-based (single device)</td><td>Stitched (cross-device, cross-channel)</td></tr>
+<tr><td><strong>Attribution</strong></td><td>Digital channels only</td><td>Cross-channel (including offline)</td></tr>
+</tbody>
+</table>
+
+<div class="info-card success">
+  <div class="card-title">✅ CJA's Defining Advantage</div>
+  <p><strong>Cross-channel customer journey analysis.</strong> CJA can unify data from web, mobile app, call center, email, in-store POS, CRM, and any other data source into a single customer view. Adobe Analytics cannot do this — it is limited to the single digital channel it instruments. This is THE answer when asked "What is the main advantage of CJA over AA?"</p>
+</div>
+`,
+
+"cja-what-is-aep": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Adobe Experience Platform</div>
+  <h1>What is Adobe Experience Platform (AEP)?</h1>
+  <p class="subtitle">The central data hub that powers CJA and all Adobe Experience Cloud products</p>
+</div>
+<div class="tag-row"><span class="tag key">Foundation</span><span class="tag exam">Exam Critical</span></div>
+
+<h2>AEP Overview</h2>
+<p>Adobe Experience Platform (AEP) is the centralized data foundation for the entire Adobe Experience Cloud ecosystem. It serves as a unified data hub that collects data from ANY source, standardizes it into a common format (XDM), resolves customer identities across channels and devices, and makes this unified data available to downstream applications like Customer Journey Analytics, Adobe Journey Optimizer, Adobe Real-Time CDP, and others. AEP is not a product you interact with directly for analysis — it is the infrastructure layer that makes cross-channel analysis possible. Think of AEP as the foundation of a building: you do not live in the foundation, but the building cannot exist without it.</p>
+
+<p>For the CJA exam, the critical concept is: <strong>CJA REQUIRES AEP and cannot exist without it.</strong> All data that CJA analyzes must first pass through AEP, conform to an XDM schema, and be stored in AEP datasets. CJA then connects to these AEP datasets via Connections (Layer 3 of the architecture). This dependency is fundamental and frequently tested.</p>
+
+<h2>AEP Core Components</h2>
+<p><strong>Data Lake:</strong> Central storage for all ingested data. Stores data in its raw form plus processed/standardized form.</p>
+<p><strong>Schemas (XDM):</strong> Standardized data format that ensures all sources use common field names and structures.</p>
+<p><strong>Datasets:</strong> Containers that hold actual data conforming to a specific schema.</p>
+<p><strong>Identity Service:</strong> Resolves different customer IDs (cookies, emails, device IDs, CRM IDs) into unified identity graphs.</p>
+<p><strong>Real-Time Customer Profile:</strong> A unified, 360-degree view of each customer combining behavioral, transactional, and attribute data.</p>
+
+<div class="diagram">
+  <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px">AEP Data Flow to CJA</div>
+  <div class="flow">
+    <div class="flow-box layer1">Any Source</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer2">AEP Data Lake</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer3">XDM Dataset</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer4">CJA Connection</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box layer5">Data View → Analysis</div>
+  </div>
+</div>
+`,
+
+"cja-why-aep": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Adobe Experience Platform</div>
+  <h1>Why CJA Needs AEP</h1>
+  <p class="subtitle">Understanding the architectural dependency and what AEP provides to CJA</p>
+</div>
+<div class="tag-row"><span class="tag key">Architecture</span></div>
+
+<h2>The Dependency Chain</h2>
+<p>CJA is built ON TOP of AEP — it is not a standalone product. This architectural decision enables CJA's cross-channel capabilities but also means CJA inherits everything from the AEP ecosystem. Without AEP, there is no data standardization (XDM), no cross-channel data collection, no identity stitching, and no unified data storage. Every single piece of data that CJA analyzes must first pass through AEP. This means AEP provides: <strong>Data Standardization</strong> (XDM ensures all data sources use the same field names and structures, making combination possible), <strong>Cross-Channel Collection</strong> (AEP can ingest data from web, mobile, CRM, call center, POS, email, IoT, and any other source), <strong>Identity Management</strong> (AEP's Identity Service builds identity graphs that link different customer IDs as the same person), <strong>Data Storage</strong> (the AEP Data Lake provides scalable, centralized storage for all collected data), and <strong>Profile Enrichment</strong> (combining behavioral data with profile attributes for richer analysis). The exam will test this dependency with questions like "Can CJA work without AEP?" (answer: NO), "Where does CJA data originate?" (answer: AEP datasets), and "What provides identity stitching capability?" (answer: AEP Identity Service).</p>
+`,
+
+"cja-xdm": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Adobe Experience Platform</div>
+  <h1>XDM — Experience Data Model</h1>
+  <p class="subtitle">Adobe's universal data language that standardizes data across all channels</p>
+</div>
+<div class="tag-row"><span class="tag key">Standardization</span></div>
+
+<h2>The Problem XDM Solves</h2>
+<p>Different data sources use different field names for the same concept. A website might call purchase revenue "order_total," a mobile app might call it "purchaseAmount," and a CRM system might call it "transaction_value." Without standardization, combining these sources is a nightmare of field mapping and data transformation. XDM (Experience Data Model) solves this by defining a universal vocabulary for customer experience data. Under XDM, all sources use the same field path: <span class="formula">commerce.order.priceTotal</span>. This standardization makes it possible to combine data from dozens of sources into unified reports without complex ETL processes. XDM is organized into base classes (XDM ExperienceEvent for behavioral/time-series data, XDM Individual Profile for person attributes), field groups (pre-built collections of related fields like Commerce, Web, Device), and custom fields (your organization's specific additions). When you create a schema in AEP, you choose a base class and add field groups and custom fields to define the complete structure for a data source.</p>
+
+<h2>Common XDM Fields</h2>
+<div class="code-block">timestamp                          → When event occurred
+web.webPageDetails.name            → Page name
+commerce.order.priceTotal          → Order revenue
+device.type                        → Device category
+person.name.firstName              → Customer first name
+personalEmail.address              → Email address
+_yourcompany.customField           → Custom field</div>
+`,
+
+"cja-arch-overview": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> 4-Layer Architecture</div>
+  <h1>CJA 4-Layer Architecture Overview</h1>
+  <p class="subtitle">The most heavily tested concept on the CJA exam — 30-40% of questions</p>
+</div>
+<div class="tag-row"><span class="tag exam">30-40% of Exam</span><span class="tag key">Most Important</span></div>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 The #1 Exam Concept</div>
+  <p>Understanding WHAT is configured WHERE is the single most important concept for the CJA exam. 30-40% of questions directly test: "Where do you configure X?" — and the answer is always one of the four layers. Master this, and you have mastered nearly half the exam.</p>
+</div>
+
+<div class="diagram">
+  <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:20px">CJA 4-Layer Architecture</div>
+  <div class="flow" style="flex-direction:column;gap:12px">
+    <div class="flow-box layer1" style="width:80%;padding:14px">Layer 1: SCHEMA (in AEP) — Define data structure • Field names • Types • Blueprint</div>
+    <div style="font-size:20px;color:var(--text-muted)">↓</div>
+    <div class="flow-box layer2" style="width:80%;padding:14px">Layer 2: DATASET (in AEP) — Store actual data • Conforms to schema • Event/Profile/Lookup types</div>
+    <div style="font-size:20px;color:var(--text-muted)">↓</div>
+    <div class="flow-box layer3" style="width:80%;padding:14px">Layer 3: CONNECTION (in CJA) — Combine datasets • Person ID • Stitching • Backfill • Retention</div>
+    <div style="font-size:20px;color:var(--text-muted)">↓</div>
+    <div class="flow-box layer4" style="width:80%;padding:14px">Layer 4: DATA VIEW (in CJA) — Configure reporting • Persistence • Attribution • Labels • Derived Fields</div>
+  </div>
+  <div style="margin-top:20px;font-size:12px;color:var(--text-muted)">Schema → Dataset → Connection → Data View = Define → Store → Combine → Configure</div>
+</div>
+
+<h2>Relationships</h2>
+<p>The four layers have specific cardinality relationships that are important for the exam: One Schema can have MANY Datasets (multiple datasets can use the same structure). Many Datasets flow into ONE Connection (a Connection combines multiple datasets). One Connection can have MANY Data Views (different teams can have different reporting configurations from the same data). Understanding these 1:many and many:1 relationships helps answer questions about how changes propagate through the architecture.</p>
+`,
+
+"cja-layer1-schema": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> 4-Layer Architecture</div>
+  <h1>Layer 1: Schema (XDM)</h1>
+  <p class="subtitle">The blueprint layer — defining data structure before collection begins</p>
+</div>
+<div class="tag-row"><span class="tag key">Blueprint Layer</span><span class="tag new">In AEP</span></div>
+
+<h2>What is a Schema?</h2>
+<p>A Schema is the blueprint that defines data structure BEFORE any data is collected. It specifies exactly what fields exist, what data types they use (string, integer, date, boolean, etc.), which fields are required vs optional, and the meaning/description of each field. Schemas are created in Adobe Experience Platform (not in CJA) and are based on the XDM standard. Every dataset must be linked to exactly one schema, ensuring that all data within a dataset conforms to the same structure. Think of a schema as an architectural blueprint for a building — you create the blueprint before construction begins, and it defines exactly what the final structure will contain.</p>
+
+<h2>Schema Components</h2>
+<p><strong>Base Class:</strong> The foundation of your schema. The two most common are XDM ExperienceEvent (for behavioral/time-series data like page views, clicks, purchases) and XDM Individual Profile (for person attributes like name, email, loyalty tier). The base class you choose determines the fundamental structure and available field groups.</p>
+
+<p><strong>Field Groups:</strong> Pre-built collections of related fields provided by Adobe. Common field groups include Commerce Details (order, product, cart fields), Web Details (page, referrer, browser fields), Device Details (device type, screen size, OS), Environment Details (IP, geo-location, connection type), and Identity Map (various customer IDs). You add field groups to your schema to inherit all their fields.</p>
+
+<p><strong>Custom Fields:</strong> Your organization-specific fields that don't exist in standard XDM. These are added under your organization's namespace (e.g., _yourcompany.customField). Custom fields allow you to capture business-specific data while maintaining XDM standardization for common fields.</p>
+
+<div class="info-card concept">
+  <div class="card-title">🏗️ What You Configure in Schema</div>
+  <p>✅ Field names and data types</p>
+  <p>✅ Required vs optional fields</p>
+  <p>✅ Field descriptions and metadata</p>
+  <p>✅ Primary identity field (which field identifies unique individuals)</p>
+  <p>❌ NOT Person ID for stitching (that's Connection)</p>
+  <p>❌ NOT persistence settings (that's Data View)</p>
+  <p>❌ NOT data itself (that's Dataset)</p>
+</div>
+
+<h2>Example Schema Structure</h2>
+<div class="code-block">Schema: "Web Events"
+├─ Base Class: XDM ExperienceEvent
+├─ Field Groups:
+│  ├─ Commerce Details
+│  ├─ Web Details  
+│  └─ Environment Details
+└─ Custom Fields:
+   └─ _mycompany.internalCampaign</div>
+`,
+
+"cja-layer2-dataset": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> 4-Layer Architecture</div>
+  <h1>Layer 2: Dataset</h1>
+  <p class="subtitle">The storage layer — containers holding actual data conforming to schemas</p>
+</div>
+<div class="tag-row"><span class="tag key">Storage Layer</span><span class="tag new">In AEP</span></div>
+
+<h2>What is a Dataset?</h2>
+<p>A Dataset is a container in AEP that stores actual data conforming to a specific schema. If the schema is the blueprint, the dataset is the actual building filled with data. Every dataset is linked to exactly ONE schema, and all data within that dataset must conform to that schema's structure. Datasets are created in Adobe Experience Platform (not CJA), and data is ingested into them through various methods: streaming ingestion (real-time data), batch ingestion (file uploads on schedule), source connectors (pre-built integrations with Salesforce, Google Analytics, etc.), or Adobe SDKs (Web SDK, Mobile SDK).</p>
+
+<h2>Three Dataset Types</h2>
+<div class="vs-grid">
+  <div class="vs-card">
+    <h4 class="layer1">Event Dataset (Time-Series)</h4>
+    <p><strong>Purpose:</strong> Behavioral data with timestamps</p>
+    <p><strong>Row = </strong>One event (page view, click, purchase)</p>
+    <p><strong>Immutable:</strong> Events don't change once recorded</p>
+    <p><strong>Examples:</strong> Web events, mobile app interactions, transaction logs</p>
+    <p><strong>Schema Base:</strong> XDM ExperienceEvent</p>
+  </div>
+  <div class="vs-card">
+    <h4 class="layer2">Profile Dataset (Entity)</h4>
+    <p><strong>Purpose:</strong> Attribute data about entities</p>
+    <p><strong>Row = </strong>One person or entity</p>
+    <p><strong>Mutable:</strong> Can be updated (person's loyalty tier changes)</p>
+    <p><strong>Examples:</strong> Customer master data, product catalog, store locations</p>
+    <p><strong>Schema Base:</strong> XDM Individual Profile or custom</p>
+  </div>
+</div>
+
+<div class="vs-grid" style="grid-template-columns:1fr">
+  <div class="vs-card">
+    <h4 class="layer3">Lookup Dataset (Reference)</h4>
+    <p><strong>Purpose:</strong> Enrichment/reference data joined to other datasets</p>
+    <p><strong>Use:</strong> Add descriptive attributes to transactional data</p>
+    <p><strong>Examples:</strong> Product details (SKU → Product Name, Category, Price), Store details (Store ID → Location, Square Footage, Manager), Campaign details (Campaign Code → Campaign Name, Budget, Channel)</p>
+    <p><strong>Join Key:</strong> Specify which field joins to event datasets</p>
+  </div>
+</div>
+
+<h2>Dataset Configuration</h2>
+<div class="info-card concept">
+  <div class="card-title">⚙️ What You Configure in Dataset</div>
+  <p>✅ Which schema the dataset uses</p>
+  <p>✅ Ingestion method (streaming, batch, connector)</p>
+  <p>✅ Data retention in AEP data lake</p>
+  <p>✅ Enable for Profile (whether data contributes to Real-Time Customer Profile)</p>
+  <p>❌ NOT Person ID (that's Connection)</p>
+  <p>❌ NOT Attribution models (that's Data View)</p>
+  <p>❌ NOT Derived fields (that's Data View)</p>
+</div>
+
+<h2>Real Example</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Multi-Dataset CJA Setup</div>
+  <p><strong>Dataset 1:</strong> "Website Events" — 50M rows (web behavioral data)</p>
+  <p><strong>Dataset 2:</strong> "Mobile App Events" — 20M rows (app behavioral data)</p>
+  <p><strong>Dataset 3:</strong> "Customer Master" — 500K rows (CRM profile data)</p>
+  <p><strong>Dataset 4:</strong> "Product Catalog" — 10K rows (product lookup data)</p>
+  <p>All four datasets will be combined in Layer 3 (Connection) for unified analysis.</p>
+</div>
+`,
+
+"cja-layer3-connection": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> 4-Layer Architecture</div>
+  <h1>Layer 3: Connection</h1>
+  <p class="subtitle">The combination layer — unifying multiple AEP datasets for cross-channel analysis</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Heavily Tested</span><span class="tag key">Critical Layer</span><span class="tag new">In CJA</span></div>
+
+<h2>What is a Connection?</h2>
+<p>A Connection is the bridge between Adobe Experience Platform datasets and Customer Journey Analytics. It combines multiple AEP datasets (web, mobile, CRM, call center, POS, email, etc.) into a unified data source that CJA can analyze. This is where cross-channel magic happens — a Connection is what enables you to see a complete customer journey across all touchpoints in a single report. Connections are created and managed in CJA (not in AEP), and they reference datasets that exist in AEP. The Connection configuration includes critical settings that determine HOW data from different sources is unified — most importantly, the Person ID configuration and identity stitching settings.</p>
+
+<h2>Critical Connection Settings</h2>
+<div class="info-card danger">
+  <div class="card-title">🎯 What You Configure in Connection (EXAM CRITICAL)</div>
+  <p><strong>✅ Person ID:</strong> The field that identifies unique individuals across datasets</p>
+  <p><strong>✅ Identity Stitching:</strong> Enable field-based or graph-based stitching</p>
+  <p><strong>✅ Which Datasets:</strong> Select which AEP datasets to include</p>
+  <p><strong>✅ Backfill:</strong> How much historical data to import when connection created</p>
+  <p><strong>✅ Data Retention in CJA:</strong> How long data stays in CJA (rolling window)</p>
+  <p><strong>✅ Event Dataset Settings:</strong> Person ID, timestamp field for each dataset</p>
+  <p>❌ NOT Persistence (that's Data View)</p>
+  <p>❌ NOT Attribution models (that's Data View)</p>
+  <p>❌ NOT Derived fields (that's Data View)</p>
+</div>
+
+<h3>Person ID Configuration</h3>
+<p>The Person ID is THE most critical Connection setting. It is the field that identifies unique individuals across all your datasets. Common Person ID choices include email address (user.email or personalEmail.address), customer ID from CRM (customerID or crmId), hashed email (for privacy compliance), or loyalty ID (loyaltyId). The key requirement is that this field must exist and be populated with MATCHING values across all datasets you want to stitch together. If your web dataset uses "email" and your mobile dataset uses "user_email" but they contain the same email addresses as values, CJA can still connect them — the field NAME doesn't have to match, only the VALUES need to match.</p>
+
+<h3>Backfill</h3>
+<p>When you first create a Connection, backfill determines how much historical data gets imported from AEP into CJA. For example, if you select "13 months" backfill, CJA will import the last 13 months of data from all connected datasets. This is a one-time import that occurs when the Connection is created or when new datasets are added. Going forward, new data flows in continuously in real-time or near-real-time. Backfill does NOT count against your data retention setting — retention is separate and controls the rolling window of how long data stays in CJA.</p>
+
+<h3>Data Retention in CJA</h3>
+<p>This setting controls how long data stays in CJA for analysis. It operates as a rolling window — data older than the retention period is automatically purged. For example, with 25-month retention, at any given moment you have access to the most recent 25 months of data. As new data flows in, the oldest data beyond 25 months is removed. Note that data still exists in AEP (governed by AEP's retention settings) — this setting only controls CJA's copy of the data.</p>
+
+<h2>Example Connection</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Real Connection Configuration</div>
+  <p><strong>Connection Name:</strong> "Global Customer Data"</p>
+  <p><strong>Datasets Included (5 total):</strong></p>
+  <ul>
+    <li>Website Events (Event dataset, 80M rows)</li>
+    <li>Mobile App Events (Event dataset, 30M rows)</li>
+    <li>CRM Customer Master (Profile dataset, 2M rows)</li>
+    <li>Call Center Interactions (Event dataset, 5M rows)</li>
+    <li>In-Store POS Transactions (Event dataset, 10M rows)</li>
+  </ul>
+  <p><strong>Person ID Field:</strong> email (common across all datasets)</p>
+  <p><strong>Stitching:</strong> Field-based stitching enabled</p>
+  <p><strong>Backfill:</strong> 13 months of historical data</p>
+  <p><strong>CJA Data Retention:</strong> 25 months rolling window</p>
+  <p><strong>Result:</strong> Unified cross-channel view of customer behavior — web, mobile, CRM, call center, and store data all combined!</p>
+</div>
+`,
+
+"cja-layer4-dataview": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> 4-Layer Architecture</div>
+  <h1>Layer 4: Data View</h1>
+  <p class="subtitle">The presentation layer — configuring HOW data appears in reports</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Heavily Tested</span><span class="tag key">Critical Layer</span><span class="tag new">In CJA</span></div>
+
+<h2>What is a Data View?</h2>
+<p>A Data View is CJA's equivalent of a Report Suite's configuration settings in Adobe Analytics. It sits on top of a Connection and defines HOW the data from that Connection appears in Analysis Workspace reports. Think of it as a lens or filter through which analysts view the data — the underlying data doesn't change, but a Data View controls which fields are visible, how they're labeled, how persistence works, which attribution model is applied, and dozens of other reporting-level configurations. The powerful concept is that ONE Connection can have MANY Data Views, allowing different teams or use cases to have customized reporting configurations from the same underlying data.</p>
+
+<h2>Critical Data View Settings</h2>
+<div class="info-card danger">
+  <div class="card-title">🎯 What You Configure in Data View (EXAM CRITICAL)</div>
+  <p><strong>✅ Component Mapping:</strong> Schema field → Friendly dimension/metric name</p>
+  <p><strong>✅ Persistence:</strong> How long dimension values persist (like eVar expiration)</p>
+  <p><strong>✅ Attribution Model:</strong> First Touch, Last Touch, Linear, Time Decay, etc.</p>
+  <p><strong>✅ Lookback Window:</strong> How far back to look for attribution (session, person, 30 days, etc.)</p>
+  <p><strong>✅ Derived Fields:</strong> Create new dimensions by transforming existing fields</p>
+  <p><strong>✅ Component Labels:</strong> Friendly names for dimensions and metrics</p>
+  <p><strong>✅ Currency Conversion:</strong> Convert multi-currency data to reporting currency</p>
+  <p><strong>✅ Session Settings:</strong> Session timeout duration</p>
+  <p>❌ NOT Person ID (that's Connection)</p>
+  <p>❌ NOT Identity Stitching (that's Connection)</p>
+  <p>❌ NOT Which datasets to include (that's Connection)</p>
+</div>
+
+<h3>Component Mapping</h2>
+<p>Schema fields have technical names like "web.webPageDetails.name" or "commerce.order.priceTotal". In the Data View, you map these XDM field paths to business-friendly names that analysts understand: "web.webPageDetails.name" becomes "Page Name" dimension, "commerce.order.priceTotal" becomes "Revenue" metric. You also decide whether a field is a dimension (green) or metric (blue) in Workspace. This mapping makes technical XDM data accessible to non-technical analysts.</p>
+
+<h3>Persistence Configuration</h2>
+<p>Persistence in CJA Data Views works similarly to eVar expiration in Adobe Analytics. You configure how long a dimension value "sticks around" after it's set. Options include: Hit/Event (no persistence — value only on the event where set), Session (persists for entire session), Person (persists across sessions for that person's lifetime), Time-based (7 days, 30 days, 90 days, etc.). For example, you might set "Campaign" dimension to persist for 30 days with Original Value allocation (first-touch attribution). This means when someone clicks a campaign, that campaign value persists for 30 days and gets credit for any conversions during that period.</p>
+
+<h3>Attribution Models</h2>
+<p>In the Data View, you can apply attribution models to dimensions. This is similar to Attribution IQ in Adobe Analytics but is configured at the Data View level rather than applied per-analysis. You choose from: First Touch (100% credit to first interaction), Last Touch (100% credit to last interaction), Linear (equal credit to all interactions), Time Decay (more credit to recent interactions), Algorithmic (ML-based credit distribution), Custom (define your own model). The attribution model determines how conversion credit is distributed when a customer has multiple touchpoints with different dimension values before converting.</p>
+
+<h3>Derived Fields</h2>
+<p>Derived Fields allow you to create new dimensions by transforming existing schema fields using logic rules — all without changing the underlying data or requiring IT involvement. This is one of CJA's most powerful features. Examples: IF device.screenWidth < 768 THEN "Mobile" ELSE IF device.screenWidth < 1024 THEN "Tablet" ELSE "Desktop" (creates Device Category dimension), Combine firstName + " " + lastName (creates Full Name dimension), Extract domain from email address using regex, Categorize revenue into tiers (<$50, $50-$100, $100-$500, $500+), Parse URL parameters to extract utm_source. Derived Fields are computed at query time, so they can be changed at any time without data reprocessing.</p>
+
+<h2>Multiple Data Views from One Connection</h2>
+<div class="vs-grid">
+  <div class="vs-card">
+    <h4 class="layer3">Marketing Team Data View</h4>
+    <p><strong>Attribution:</strong> Last Touch</p>
+    <p><strong>Lookback:</strong> 30 days</p>
+    <p><strong>Session Timeout:</strong> 30 minutes</p>
+    <p><strong>Focus:</strong> Campaign performance, conversion funnel</p>
+    <p><strong>Components:</strong> Marketing-focused dimensions visible</p>
+  </div>
+  <div class="vs-card">
+    <h4 class="layer4">Product Team Data View</h4>
+    <p><strong>Attribution:</strong> Linear</p>
+    <p><strong>Lookback:</strong> Person lifetime</p>
+    <p><strong>Session Timeout:</strong> 60 minutes</p>
+    <p><strong>Focus:</strong> Feature engagement, retention</p>
+    <p><strong>Components:</strong> Product-focused dimensions visible</p>
+  </div>
+</div>
+
+<p style="margin-top:16px;font-size:13px;color:var(--text-dim)">Same underlying data (Connection), but two completely different reporting configurations for different analytical needs. This is the power of Data Views.</p>
+`,
+
+"cja-identity-stitching": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Identity & Stitching</div>
+  <h1>What is Identity Stitching?</h1>
+  <p class="subtitle">Connecting different identifiers to recognize the same person across devices and channels</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Critical Concept</span><span class="tag key">Cross-Device</span></div>
+
+<h2>The Problem Without Stitching</h2>
+<div class="info-card danger">
+  <div class="card-title">❌ Fragmented Customer View</div>
+  <p>Sarah appears as 4 different "people" in your analytics:</p>
+  <ul>
+    <li><strong>Person 1:</strong> Cookie ABC123 (anonymous web browsing)</li>
+    <li><strong>Person 2:</strong> Email sarah@example.com (logged-in web session)</li>
+    <li><strong>Person 3:</strong> Device ID XYZ789 (mobile app usage)</li>
+    <li><strong>Person 4:</strong> Customer ID CUST456 (CRM system)</li>
+  </ul>
+  <p><strong>Result:</strong> 4 unique "people", fragmented journey, no cross-channel insights, inflated user counts, broken attribution</p>
+</div>
+
+<h2>The Solution With Stitching</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Unified Customer View</div>
+  <p>Identity Stitching recognizes that all 4 IDs belong to the SAME person:</p>
+  <p style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;margin:12px 0;color:var(--green)">
+    cookie ABC123 ↔ sarah@example.com ↔ deviceID XYZ789 ↔ customer CUST456<br>
+    <strong>= 1 Unified Person</strong>
+  </p>
+  <p><strong>Result:</strong> 1 unified person profile, complete cross-channel journey visible, accurate attribution, true unique user count</p>
+</div>
+
+<h2>How Stitching Works</h2>
+<p><strong>Step 1:</strong> Configure Person ID in Connection (e.g., email field)</p>
+<p><strong>Step 2:</strong> Enable stitching (field-based or graph-based method)</p>
+<p><strong>Step 3:</strong> Real-time stitching — new events matched instantly if Person ID present</p>
+<p><strong>Step 4:</strong> Replay stitching — historical data re-processed daily/weekly when new ID connections discovered</p>
+
+<p>The replay process is critical: When Sarah browses anonymously (cookie ABC123) on Monday, then logs in on Tuesday revealing her email, the replay job runs and goes BACK to Monday's anonymous data and updates it to show that cookie ABC123 = sarah@example.com. Her entire history is now unified!</p>
+`,
+
+"cja-person-id": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Identity & Stitching</div>
+  <h1>Person ID Configuration</h1>
+  <p class="subtitle">The single most critical Connection setting — the key that unifies your data</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ Exam Favorite</span><span class="tag key">Must Know</span></div>
+
+<h2>Where Person ID is Configured</h2>
+<div class="info-card danger">
+  <div class="card-title">🎯 EXAM CRITICAL — Know This Cold</div>
+  <p><strong>Question:</strong> "Where do you configure the Person ID for stitching in CJA?"</p>
+  <p>❌ Schema — Defines fields but doesn't specify stitching ID</p>
+  <p>❌ Dataset — Stores data but doesn't configure stitching</p>
+  <p>✅ <strong>CONNECTION</strong> — This is where Person ID is configured!</p>
+  <p>❌ Data View — Controls reporting, not identity stitching</p>
+</div>
+
+<h2>Choosing the Right Person ID</h2>
+<p>The Person ID field must meet several criteria: It should exist across ALL datasets you want to stitch, it should have matching VALUES (not necessarily matching field NAMES), it should be stable over time (doesn't change for the same person), and it should be privacy-compliant (consider using hashed identifiers if needed). Common Person ID choices:</p>
+
+<table class="data-table">
+<thead><tr><th>Person ID Type</th><th>Field Example</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td><strong>Email</strong></td><td>personalEmail.address</td><td>Widely available, stable, cross-device</td><td>Privacy concerns, not always captured when anonymous</td></tr>
+<tr><td><strong>Customer ID</strong></td><td>customerID or crmId</td><td>Unique, from authoritative source (CRM)</td><td>Only available after login/registration</td></tr>
+<tr><td><strong>Hashed Email</strong></td><td>hashedEmail</td><td>Privacy-friendly, still stable</td><td>Requires consistent hashing algorithm</td></tr>
+<tr><td><strong>Loyalty ID</strong></td><td>loyaltyId</td><td>Stable, unique</td><td>Only for loyalty program members</td></tr>
+</tbody>
+</table>
+
+<h2>Person ID Across Multiple Datasets</h2>
+<div class="info-card concept">
+  <div class="card-title">🔗 Cross-Dataset Stitching Example</div>
+  <p><strong>Dataset 1 (Web):</strong> person.email field</p>
+  <p><strong>Dataset 2 (Mobile):</strong> user_email field</p>
+  <p><strong>Dataset 3 (CRM):</strong> customer_email field</p>
+  <p><strong>Connection Config:</strong> Person ID = email (specified for each dataset)</p>
+  <p><strong>Matching Logic:</strong> If person.email = "sarah@example.com" AND user_email = "sarah@example.com" AND customer_email = "sarah@example.com", then all three records belong to the SAME person</p>
+  <p>Field names don't have to match — only the VALUES need to match for stitching to work!</p>
+</div>
+`,
+
+"cja-field-stitching": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Identity & Stitching</div>
+  <h1>Field-Based Stitching</h1>
+  <p class="subtitle">Direct field value matching to connect identities — simple, deterministic, and most commonly used</p>
+</div>
+<div class="tag-row"><span class="tag key">Stitching Method 1</span></div>
+
+<h2>How Field-Based Stitching Works</h2>
+<p>Field-based stitching is the simpler and most commonly used stitching method. It works by matching on a common field value (typically email or customer ID) across different datasets. The logic is straightforward: if multiple records have the same value in the Person ID field, they belong to the same person. This is a deterministic approach — there's no probability or guessing involved. Either the values match exactly (same person) or they don't (different people).</p>
+
+<h2>Matching Process</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Example Matching</div>
+  <p><strong>Web Event:</strong> email = "sarah@example.com", cookie = "ABC123"</p>
+  <p><strong>Mobile Event:</strong> email = "sarah@example.com", deviceID = "XYZ789"</p>
+  <p><strong>CRM Record:</strong> email = "sarah@example.com", customerID = "CUST456"</p>
+  <p style="margin-top:12px"><strong>Stitching Result:</strong> All three records linked via email = "sarah@example.com"</p>
+  <p>Now when you query CJA, these three events are recognized as the same person. You can see Sarah's complete journey: anonymous web browsing → mobile app usage → CRM registration — all unified!</p>
+</div>
+
+<h2>Advantages</h2>
+<p>✅ Simple and easy to understand<br>✅ Deterministic (no guessing or probability)<br>✅ Easy to debug and troubleshoot<br>✅ No dependency on external identity graphs<br>✅ Works with any common identifier field<br>✅ Privacy-friendly (can use hashed IDs)</p>
+
+<h2>Limitations</h2>
+<p>❌ Requires common identifier across datasets (if datasets don't share a field with matching values, they can't be stitched)<br>❌ Cannot connect IDs without direct link (if Cookie A links to Email B, and Email B links to Device C, field-based stitching does NOT automatically connect Cookie A to Device C — no transitive matching)<br>❌ Late-binding only (stitching happens after data collection)</p>
+`,
+
+"cja-graph-stitching": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Identity & Stitching</div>
+  <h1>Graph-Based Stitching</h1>
+  <p class="subtitle">Using Adobe's Identity Service graph for more comprehensive cross-device recognition</p>
+</div>
+<div class="tag-row"><span class="tag key">Stitching Method 2</span><span class="tag new">Advanced</span></div>
+
+<h2>How Graph-Based Stitching Works</h2>
+<p>Graph-based stitching leverages Adobe's Identity Service, which builds and maintains identity graphs that understand relationships between different identifiers. Unlike field-based stitching (which only matches direct field values), graph-based stitching can make transitive connections — if it knows that Cookie A is linked to Email B, and Email B is linked to Device C, the graph understands that Cookie A and Device C belong to the same person even though they never directly appeared together. This provides more comprehensive stitching, especially for complex cross-device scenarios.</p>
+
+<h2>Transitive Matching Example</h2>
+<div class="info-card concept">
+  <div class="card-title">🔗 The Power of Identity Graphs</div>
+  <p><strong>Day 1:</strong> User browses on laptop (cookie ABC123), then logs in → Identity Service learns: cookie ABC123 ↔ email sarah@example.com</p>
+  <p><strong>Day 2:</strong> User opens mobile app on phone, logs in → Identity Service learns: email sarah@example.com ↔ deviceID XYZ789</p>
+  <p><strong>Graph Inference:</strong> Identity Service now knows: cookie ABC123 ↔ deviceID XYZ789 (even though cookie and device never appeared together!)</p>
+  <p><strong>Result:</strong> Laptop browsing and phone app usage are now recognized as the same person, providing complete cross-device journey visibility</p>
+</div>
+
+<h2>Advantages Over Field-Based</h2>
+<p>✅ More comprehensive stitching (transitive connections)<br>✅ Handles complex identity relationships<br>✅ Better cross-device recognition<br>✅ Identity graph continuously learns and improves<br>✅ Can connect identifiers that never appeared together</p>
+
+<h2>Considerations</h2>
+<p>Graph-based stitching requires Adobe Identity Service to be implemented and building identity graphs. It's more complex to understand and troubleshoot than field-based. Graph quality depends on the completeness of identity data being collected. For most organizations, field-based stitching is sufficient and simpler to implement.</p>
+`,
+
+"cja-replay": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Identity & Stitching</div>
+  <h1>Replay Process</h1>
+  <p class="subtitle">Re-processing historical data when new identity connections are discovered</p>
+</div>
+<div class="tag-row"><span class="tag key">Critical Feature</span><span class="tag exam">Heavily Tested</span></div>
+
+<h2>Why Replay Matters</h2>
+<p>The replay process is what makes stitching truly powerful. Here's the problem it solves: Users often browse anonymously BEFORE logging in and revealing their identity. Without replay, all that anonymous activity would remain unconnected to their authenticated identity. Replay fixes this by going back through historical data and updating identities when new connections are discovered.</p>
+
+<h2>The Anonymous → Authenticated Journey</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Complete Replay Example</div>
+  <p><strong>Monday 10 AM:</strong> Sarah browses anonymously on her laptop</p>
+  <ul>
+    <li>Person ID: temp_999 (temporary anonymous ID)</li>
+    <li>Cookie: ABC123</li>
+    <li>Activities: Viewed 5 product pages, added item to cart</li>
+  </ul>
+  
+  <p><strong>Tuesday 2 PM:</strong> Sarah returns and logs in</p>
+  <ul>
+    <li>Identity Service learns: cookie ABC123 ↔ email sarah@example.com</li>
+    <li>Person ID updated: sarah@example.com</li>
+  </ul>
+  
+  <p><strong>Tuesday Night:</strong> Replay job runs (scheduled daily)</p>
+  <ul>
+    <li>Replay looks back at all events with cookie ABC123</li>
+    <li>Finds Monday's anonymous browsing</li>
+    <li>Updates Person ID: temp_999 → sarah@example.com</li>
+  </ul>
+  
+  <p><strong>Result:</strong> Monday's anonymous activity is now attributed to sarah@example.com. Her complete unified history is now available for analysis — no data is left fragmented!</p>
+</div>
+
+<h2>Replay Schedule</h2>
+<p>Replay jobs typically run on a schedule configured in your Connection settings: Daily replay (most common — runs every 24 hours to catch yesterday's new identity connections), Weekly replay (less frequent but processes longer lookback window), Manual replay (triggered on-demand by administrators). Each replay job looks back over a specified window (e.g., last 7 days, last 30 days) to find events that can now be re-attributed based on newly discovered identity links.</p>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 Exam Question Pattern</div>
+  <p><strong>Q:</strong> "A user browses anonymously for 3 days, then logs in on day 4. What happens to the anonymous browsing data?"</p>
+  <p>❌ Wrong: "It remains anonymous forever"</p>
+  <p>❌ Wrong: "It's immediately stitched when they log in"</p>
+  <p>✅ Correct: "The next replay job will stitch the anonymous data to their authenticated identity"</p>
+</div>
+`,
+
+"cja-what-cross-channel": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Cross-Channel Analysis</div>
+  <h1>What is Cross-Channel Analysis?</h1>
+  <p class="subtitle">CJA's defining capability — analyzing complete customer journeys across all touchpoints</p>
+</div>
+<div class="tag-row"><span class="tag exam">★ THE Key Advantage</span><span class="tag key">Most Important</span></div>
+
+<h2>Cross-Channel Defined</h2>
+<p>Cross-channel analysis means analyzing customer behavior across ALL touchpoints in unified reports — web, mobile, call center, email, in-store, social media, and any other channel where customers interact with your brand. This is THE defining capability of Customer Journey Analytics and what fundamentally distinguishes it from Adobe Analytics. Adobe Analytics can analyze ONE digital channel at a time (web OR mobile). CJA can analyze ALL channels together, showing how they interconnect and influence each other in the customer's journey to conversion.</p>
+
+<div class="info-card success">
+  <div class="card-title">✅ This is THE Answer</div>
+  <p><strong>Exam Question:</strong> "What is the main advantage of CJA over Adobe Analytics?"</p>
+  <p><strong>Answer:</strong> Cross-channel customer journey analysis</p>
+  <p>This is the single most important concept for the CJA exam. Every other feature (stitching, derived fields, unlimited dimensions) exists to ENABLE cross-channel analysis.</p>
+</div>
+
+<h2>Traditional Siloed View (Adobe Analytics)</h2>
+<div class="info-card danger">
+  <div class="card-title">❌ The Problem</div>
+  <p><strong>Web Analytics Report:</strong> 10,000 visitors, 200 purchases, 2% conversion rate</p>
+  <p><strong>Mobile Analytics Report:</strong> 5,000 users, 100 purchases, 2% conversion rate</p>
+  <p><strong>Store System:</strong> 500 in-store purchases</p>
+  <p><strong>Call Center System:</strong> 2,000 support calls</p>
+  <p style="margin-top:12px"><strong>Questions You CANNOT Answer:</strong></p>
+  <ul>
+    <li>Did web visitors end up buying in the store? (ROPO behavior)</li>
+    <li>Do customers who call support have higher lifetime value?</li>
+    <li>What's the complete journey from first touch to purchase across all channels?</li>
+    <li>Which channel combinations drive the most revenue?</li>
+  </ul>
+</div>
+
+<h2>CJA Unified View</h2>
+<div class="info-card success">
+  <div class="card-title">✅ The Solution</div>
+  <p><strong>Single Unified Report Showing:</strong></p>
+  <table class="data-table" style="margin-top:12px">
+  <thead><tr><th>Journey Pattern</th><th>People</th><th>Revenue</th><th>AOV</th></tr></thead>
+  <tbody>
+  <tr><td>Web only</td><td>6,000</td><td>$15,000</td><td>$2.50</td></tr>
+  <tr><td>Mobile only</td><td>3,000</td><td>$8,000</td><td>$2.67</td></tr>
+  <tr><td>Web → Store (ROPO)</td><td>2,000</td><td>$150,000</td><td>$75.00</td></tr>
+  <tr><td>Web → Call → Store</td><td>800</td><td>$80,000</td><td>$100.00</td></tr>
+  <tr><td>Multi-channel (3+)</td><td>1,200</td><td>$90,000</td><td>$75.00</td></tr>
+  </tbody>
+  </table>
+  <p style="margin-top:12px"><strong>Insights Now Possible:</strong></p>
+  <ul>
+    <li>ROPO customers (web research → store purchase) have 30x higher AOV!</li>
+    <li>Customers who call support before buying have 40x higher AOV</li>
+    <li>Multi-channel customers generate 3.5x more revenue than single-channel</li>
+    <li>Web alone appears low-value ($2.50 AOV), but it drives $150K in store revenue!</li>
+  </ul>
+  <p><strong>Business Impact:</strong> Without CJA, you might CUT web budget (appears ineffective). With CJA, you INCREASE web investment (drives high-value store sales)!</p>
+</div>
+`,
+
+"cja-ropo": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Cross-Channel Analysis</div>
+  <h1>ROPO Analysis</h1>
+  <p class="subtitle">Research Online, Purchase Offline — understanding digital's impact on physical store sales</p>
+</div>
+<div class="tag-row"><span class="tag key">Use Case</span></div>
+
+<h2>Understanding ROPO Behavior</h2>
+<p>ROPO (Research Online, Purchase Offline) is a common customer behavior pattern where digital channels drive physical store purchases. Customers browse products on your website, read reviews on mobile, compare prices across channels — all digitally — but complete the actual purchase transaction in a physical retail store. Traditional analytics (Adobe Analytics) cannot connect online research to offline purchases because they exist in separate systems. CJA solves this by unifying online and offline data through stitching, making the complete ROPO journey visible.</p>
+
+<h2>Why ROPO is Critical for Retailers</h2>
+<p>Without visibility into ROPO behavior, digital channels appear to underperform: Web analytics shows lots of traffic, product views, but low conversion rates. Store systems show high sales but no attribution to what drove them. Marketing teams might incorrectly conclude that digital is ineffective and reduce investment. With CJA's cross-channel view, you discover that digital research drives significant in-store sales — completely changing budget allocation and strategy decisions.</p>
+
+<h2>Complete ROPO Journey in CJA</h2>
+<div class="info-card success">
+  <div class="card-title">✅ End-to-End ROPO Visibility</div>
+  <p><strong>Monday:</strong> Sarah searches for "running shoes" on website (web dataset captures search term, product views)</p>
+  <p><strong>Tuesday:</strong> Sarah reads reviews on mobile app (mobile dataset captures app engagement, review reads)</p>
+  <p><strong>Wednesday:</strong> Sarah calls store to check inventory (call center dataset captures phone call, product inquiry)</p>
+  <p><strong>Saturday:</strong> Sarah visits store and purchases shoes for $120 (POS dataset captures in-store transaction)</p>
+  <p style="margin-top:12px;"><strong>CJA Report Shows:</strong></p>
+  <ul>
+    <li>Person: sarah@example.com (unified via stitching)</li>
+    <li>First Touch Channel: Organic Search (web)</li>
+    <li>Touchpoints: Web (2 sessions) → Mobile (1 session) → Call Center (1 call) → Store (1 visit)</li>
+    <li>Total Touchpoints: 5 across 4 channels over 5 days</li>
+    <li>Conversion: $120 in-store purchase</li>
+    <li>Attribution: Organic Search gets credit for initiating journey that led to store sale</li>
+  </ul>
+  <p><strong>Business Impact:</strong> Organic search now properly credited with driving $120 store sale, not just "bounce" from website!</p>
+</div>
+`,
+
+"cja-journey-tracking": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Cross-Channel Analysis</div>
+  <h1>Complete Journey Tracking</h1>
+  <p class="subtitle">Following customers across every touchpoint from awareness to loyalty</p>
+</div>
+<div class="tag-row"><span class="tag key">End-to-End</span></div>
+
+<h2>Multi-Channel Journey Example</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Sarah's Complete Cross-Channel Journey</div>
+  
+  <p><strong>Day 1 — Awareness (Digital):</strong></p>
+  <ul>
+    <li>Sees Facebook ad for summer sale</li>
+    <li>Clicks ad → Lands on homepage</li>
+    <li>Browses 3 product category pages</li>
+    <li>Exits without converting</li>
+    <li><em>Data Source: Web dataset (Facebook referrer captured)</em></li>
+  </ul>
+  
+  <p><strong>Day 3 — Consideration (Digital):</strong></p>
+  <ul>
+    <li>Receives email campaign "Extra 20% off"</li>
+    <li>Clicks email → Views specific product page</li>
+    <li>Opens mobile app to compare prices</li>
+    <li>Uses product comparison feature on app</li>
+    <li><em>Data Sources: Email dataset + Web dataset + Mobile app dataset</em></li>
+  </ul>
+  
+  <p><strong>Day 5 — Support (Human Channel):</strong></p>
+  <ul>
+    <li>Calls customer service with sizing question</li>
+    <li>Agent helps for 8 minutes, provides recommendation</li>
+    <li><em>Data Source: Call center dataset (call duration, reason, resolution)</em></li>
+  </ul>
+  
+  <p><strong>Day 7 — Conversion (Physical):</strong></p>
+  <ul>
+    <li>Visits physical store location</li>
+    <li>Purchases recommended product: $150</li>
+    <li>Cashier captures email for receipt → Stitching happens!</li>
+    <li><em>Data Source: POS dataset (in-store transaction)</em></li>
+  </ul>
+  
+  <p><strong>Day 14 — Loyalty (Digital):</strong></p>
+  <ul>
+    <li>Receives post-purchase email</li>
+    <li>Opens mobile app, submits 5-star review</li>
+    <li>Enrolls in loyalty program</li>
+    <li><em>Data Sources: Mobile app dataset + CRM dataset</em></li>
+  </ul>
+</div>
+
+<h2>Cross-Channel Insights</h2>
+<table class="data-table">
+<thead><tr><th>Question</th><th>CJA Answer</th><th>Why This Matters</th></tr></thead>
+<tbody>
+<tr><td>Which channel started the journey?</td><td>Facebook ad (first touch)</td><td>Awareness channel attribution</td></tr>
+<tr><td>Which channel drove the decision?</td><td>Customer service call (support built confidence)</td><td>Value of human touchpoints</td></tr>
+<tr><td>Where did purchase occur?</td><td>Physical store (ROPO behavior)</td><td>Don't undervalue digital's role</td></tr>
+<tr><td>Total journey duration?</td><td>14 days from awareness to loyalty</td><td>Understand customer lifecycle timing</td></tr>
+<tr><td>Total touchpoints?</td><td>10 interactions across 5 channels</td><td>Multi-touch attribution needed</td></tr>
+<tr><td>Customer lifetime value?</td><td>$150 purchase + loyalty member (future value)</td><td>Long-term value perspective</td></tr>
+</tbody>
+</table>
+
+<h2>Attribution Across Channels</h2>
+<p>Using different attribution models on this journey yields different insights:</p>
+<p><strong>First Touch:</strong> Facebook ad gets 100% credit (awareness channel performance)</p>
+<p><strong>Last Touch:</strong> Store visit gets 100% credit (conversion channel performance)</p>
+<p><strong>Linear:</strong> Facebook (20%), Email (20%), Mobile (20%), Call (20%), Store (20%) — equal credit</p>
+<p><strong>Time Decay:</strong> Store $200, Call $150, App $80, Email $40, Web $20, Facebook $10</p>
+<p><strong>U-Shaped:</strong> Facebook $200, Store $200, middle 4 touchpoints $25 each</p>
+<p><strong>Custom Business Rule:</strong> Human touchpoints (call) get 2x weight — valuing assisted conversions</p>
+`,
+
+"cja-cja-filters": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> CJA Components</div>
+  <h1>Filters (CJA Segments)</h1>
+  <p class="subtitle">CJA's term for segments — isolating specific subsets of people, sessions, or events</p>
+</div>
+<div class="tag-row"><span class="tag key">Terminology</span><span class="tag exam">30% of Exam</span></div>
+
+<h2>Critical Terminology Change</h2>
+<div class="info-card danger">
+  <div class="card-title">🎯 EXAM CRITICAL — Use CJA Terms!</div>
+  <p>In CJA, segments are called <strong>FILTERS</strong>. Using Adobe Analytics terminology will lead to wrong answers!</p>
+  <table class="data-table" style="margin-top:12px">
+  <thead><tr><th>Adobe Analytics</th><th>Customer Journey Analytics</th></tr></thead>
+  <tbody>
+  <tr><td>Segment</td><td><strong>Filter</strong></td></tr>
+  <tr><td>Hit</td><td><strong>Event</strong></td></tr>
+  <tr><td>Visit</td><td><strong>Session</strong></td></tr>
+  <tr><td>Visitor</td><td><strong>Person</strong></td></tr>
+  </tbody>
+  </table>
+  <p style="margin-top:12px">When the exam asks about creating a "segment" or references "visitors," translate mentally to Filter and Person!</p>
+</div>
+
+<h2>Filter Container Types</h2>
+<p>CJA Filters use the same three-level container hierarchy as AA segments, but with renamed containers:</p>
+
+<p><strong>Event Container (smallest):</strong> Returns only specific events matching the condition. Equivalent to Hit container in AA. Use when you want to analyze specific actions in isolation.</p>
+
+<p><strong>Session Container (medium):</strong> Returns all events within sessions where the condition was met at least once. Equivalent to Visit container in AA. Use when you want to understand complete sessions/visits.</p>
+
+<p><strong>Person Container (largest):</strong> Returns all data for people who ever met the condition across their entire lifetime. Equivalent to Visitor container in AA. Use for lifetime behavioral analysis.</p>
+
+<div class="diagram">
+  <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px">Container Hierarchy in CJA</div>
+  <div class="flow">
+    <div class="flow-box layer5" style="padding:12px 18px">EVENT<br><small>(Hit)</small></div>
+    <div class="flow-arrow">⊂</div>
+    <div class="flow-box layer3" style="padding:14px 22px">SESSION<br><small>(Visit)</small></div>
+    <div class="flow-arrow">⊂</div>
+    <div class="flow-box layer1" style="padding:18px 28px">PERSON<br><small>(Visitor)</small></div>
+  </div>
+</div>
+
+<h2>Cross-Channel Filter Example</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Multi-Channel Filter</div>
+  <p><strong>Filter Name:</strong> "Omnichannel Customers"</p>
+  <p><strong>Container:</strong> Person</p>
+  <p><strong>Conditions:</strong></p>
+  <ul>
+    <li>Web events exist (any web activity)</li>
+    <li>AND Mobile app events exist (any app activity)</li>
+    <li>AND Store purchases exist (any in-store transaction)</li>
+  </ul>
+  <p><strong>Result:</strong> Returns ALL data for people who have used web + mobile app + physical store</p>
+  <p><strong>Use Case:</strong> Analyze behavior of your most engaged omnichannel customers — these are typically your highest-value segments!</p>
+</div>
+`,
+
+"cja-cja-dimensions": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> CJA Components</div>
+  <h1>Dimensions & Metrics in CJA</h1>
+  <p class="subtitle">Unlimited flexibility — any schema field can become a dimension or metric</p>
+</div>
+<div class="tag-row"><span class="tag key">No Limits</span></div>
+
+<h2>CJA vs AA — The Key Difference</h2>
+<table class="data-table">
+<thead><tr><th>Feature</th><th>Adobe Analytics</th><th>Customer Journey Analytics</th></tr></thead>
+<tbody>
+<tr><td><strong>Custom Dimensions</strong></td><td>Limited: 75 props + 250 eVars = 325 total</td><td><strong>UNLIMITED</strong> — any schema field</td></tr>
+<tr><td><strong>Custom Metrics</strong></td><td>Limited: 1000 custom events</td><td><strong>UNLIMITED</strong> — any numeric schema field</td></tr>
+<tr><td><strong>Configuration Required?</strong></td><td>Yes — must pre-configure variables in implementation</td><td>No — just add fields to schema, map in Data View</td></tr>
+<tr><td><strong>Implementation Changes?</strong></td><td>Yes — need code changes to add new props/eVars</td><td>No — add fields to schema without implementation changes</td></tr>
+</tbody>
+</table>
+
+<h2>Creating Dimensions in CJA</h2>
+<p>In CJA, you don't "configure props or eVars" — you simply map schema fields to dimensions in your Data View. The process is: Data exists in AEP dataset with XDM schema fields → In CJA Data View, drag schema field into Components → Specify whether it's a dimension (categorical) or metric (numeric) → Give it a friendly label → Configure persistence, attribution, format as needed → Done! The dimension is now available in Analysis Workspace.</p>
+
+<h2>Example Dimension Mappings</h2>
+<div class="code-block">// Web behavior dimensions
+web.webPageDetails.name           → "Page Name" (dimension)
+web.webReferrer.URL                → "Referring URL" (dimension)
+device.type                        → "Device Type" (dimension)
+
+// Commerce dimensions
+commerce.order.priceTotal          → "Revenue" (metric)
+commerce.productListItems.name     → "Product Name" (dimension)
+commerce.productListItems.quantity → "Units Sold" (metric)
+
+// Custom business dimensions
+_yourcompany.customerTier          → "Customer Tier" (dimension)
+_yourcompany.subscriptionStatus    → "Subscription Status" (dimension)
+_yourcompany.internalCampaignCode  → "Internal Campaign" (dimension)</div>
+
+<p>Every schema field can become a dimension or metric — no variable limits!</p>
+`,
+
+"cja-derived-fields": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> CJA Components</div>
+  <h1>Derived Fields</h1>
+  <p class="subtitle">Transform schema fields into new dimensions at query time — no data reprocessing needed</p>
+</div>
+<div class="tag-row"><span class="tag key">Powerful Feature</span><span class="tag new">Data View</span></div>
+
+<h2>What are Derived Fields?</h2>
+<p>Derived Fields are one of CJA's most powerful features. They allow you to create new dimensions by transforming existing schema fields using business logic rules — all within the Data View interface, without touching your data, without changing schemas, and without IT involvement. Derived Fields are calculated at query time, which means they can be changed at any time without data reprocessing. If you realize your device categorization logic needs adjustment, you just update the Derived Field definition — instantly, all historical data reflects the new logic.</p>
+
+<h2>Common Derived Field Use Cases</h2>
+
+<h3>1. Categorizing Continuous Values</h3>
+<div class="info-card concept">
+  <div class="card-title">📊 Example: Device Category from Screen Width</div>
+  <p><strong>Logic:</strong></p>
+  <div class="code-block">IF device.screenWidth < 768 THEN "Mobile"
+ELSE IF device.screenWidth < 1024 THEN "Tablet"  
+ELSE "Desktop"</div>
+  <p><strong>Result:</strong> New dimension "Device Category" created from numeric screen width field</p>
+</div>
+
+<h3>2. Combining Multiple Fields</h3>
+<div class="info-card concept">
+  <div class="card-title">🔤 Example: Full Name</div>
+  <p><strong>Logic:</strong> CONCATENATE(person.firstName, " ", person.lastName)</p>
+  <p><strong>Result:</strong> "John" + " " + "Smith" = "John Smith" as new dimension</p>
+</div>
+
+<h3>3. Parsing Strings</h3>
+<div class="info-card concept">
+  <div class="card-title">🌐 Example: Email Domain</div>
+  <p><strong>Logic:</strong> REGEX_EXTRACT(personalEmail.address, "@(.+)$")</p>
+  <p><strong>Result:</strong> Extract domain from "sarah@example.com" → "example.com"</p>
+</div>
+
+<h3>4. Revenue Tiers</h3>
+<div class="info-card concept">
+  <div class="card-title">💰 Example: Order Size Category</div>
+  <p><strong>Logic:</strong></p>
+  <div class="code-block">IF commerce.order.priceTotal < 50 THEN "Small Order"
+ELSE IF commerce.order.priceTotal < 200 THEN "Medium Order"
+ELSE IF commerce.order.priceTotal < 500 THEN "Large Order"
+ELSE "Enterprise Order"</div>
+  <p><strong>Result:</strong> Revenue bucketed into business-meaningful categories</p>
+</div>
+
+<h2>Benefits of Derived Fields</h2>
+<p>✅ No data reprocessing required — changes apply instantly to all historical data<br>✅ No implementation changes — all configuration done in Data View UI<br>✅ Query-time calculation — flexible and fast<br>✅ Business users can create them — no developer needed<br>✅ Doesn't change underlying data — completely non-destructive<br>✅ Can be modified anytime — iterative refinement possible</p>
+
+<div class="info-card danger">
+  <div class="card-title">🎯 Exam Question Pattern</div>
+  <p><strong>Q:</strong> "Where do you create Derived Fields in CJA?"</p>
+  <p>❌ Schema — Defines raw fields, not transformations</p>
+  <p>❌ Dataset — Stores data, doesn't transform it</p>
+  <p>❌ Connection — Combines data, doesn't transform it</p>
+  <p>✅ <strong>Data View</strong> — This is where Derived Fields are created!</p>
+</div>
+`,
+
+"cja-cja-workspace": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Reporting & Analysis</div>
+  <h1>Analysis Workspace in CJA</h1>
+  <p class="subtitle">The same powerful interface as AA, but with cross-channel data!</p>
+</div>
+<div class="tag-row"><span class="tag key">Reporting</span><span class="tag exam">32% of Exam</span></div>
+
+<h2>Workspace in CJA</h2>
+<p>Analysis Workspace in CJA is nearly identical to Workspace in Adobe Analytics — same drag-and-drop interface, same visualization types, same panel structure. The key difference is that CJA Workspace operates on cross-channel unified data instead of single-channel data. This means you can build a Freeform Table that shows web, mobile app, call center, and store data all in the same report — something impossible in AA. You can create Fallout visualizations that track a journey from web research → mobile app comparison → call center inquiry → store purchase. You can segment by "People who used mobile app AND called support AND purchased in store" — true cross-channel segmentation.</p>
+
+<h2>Cross-Channel Reporting Example</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Unified Freeform Table</div>
+  <p><strong>Rows (Dimension):</strong> Marketing Channel (First Touch)</p>
+  <p><strong>Columns (Metrics):</strong> People | Sessions | Events | Revenue | Conversion Rate</p>
+  <p><strong>Data Includes:</strong> Web + Mobile App + Store POS + Call Center — all unified!</p>
+  <table class="data-table" style="margin-top:12px">
+  <thead><tr><th>Channel</th><th>People</th><th>Sessions</th><th>Revenue</th><th>Conv %</th></tr></thead>
+  <tbody>
+  <tr><td>Organic Search</td><td>50,000</td><td>65,000</td><td>$500K</td><td>4.2%</td></tr>
+  <tr><td>Paid Search</td><td>30,000</td><td>35,000</td><td>$350K</td><td>5.1%</td></tr>
+  <tr><td>Email</td><td>25,000</td><td>40,000</td><td>$420K</td><td>6.8%</td></tr>
+  <tr><td>Social</td><td>20,000</td><td>22,000</td><td>$180K</td><td>3.9%</td></tr>
+  <tr><td>Direct</td><td>15,000</td><td>25,000</td><td>$280K</td><td>7.2%</td></tr>
+  </tbody>
+  </table>
+  <p style="margin-top:12px"><strong>The Power:</strong> This table shows revenue from ALL channels (including offline store purchases!) attributed back to the first digital touchpoint. You're measuring digital's TRUE impact, not just direct digital conversions.</p>
+</div>
+`,
+
+"cja-cja-attribution": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Reporting & Analysis</div>
+  <h1>Attribution in CJA</h1>
+  <p class="subtitle">Cross-channel attribution — understanding which touchpoints drive offline AND online conversions</p>
+</div>
+<div class="tag-row"><span class="tag key">Cross-Channel</span></div>
+
+<h2>CJA Attribution Power</h2>
+<p>The key difference between AA and CJA attribution is that CJA can attribute OFFLINE conversions (store purchases, call center sales) back to DIGITAL touchpoints (web, mobile, email). This is transformational for businesses with physical locations or multiple channels. In AA, you can only attribute digital conversions (online purchases) to digital touchpoints. CJA breaks this limitation — you can see which Facebook ad drove someone to research online and eventually purchase in-store. You can measure which email campaigns lead to phone calls that convert to sales. You can understand which mobile app features drive users to visit physical locations.</p>
+
+<h2>Cross-Channel Attribution Example</h2>
+<div class="info-card success">
+  <div class="card-title">✅ Complete Journey Attribution</div>
+  <p><strong>Journey:</strong> Facebook Ad → Website → Email → Mobile App → Call Center → Store Purchase ($500)</p>
+  
+  <p><strong>Attribution Models Applied:</strong></p>
+  <p><strong>First Touch:</strong> Facebook Ad gets $500 (acquisition channel credit)</p>
+  <p><strong>Last Touch:</strong> Store Visit gets $500 (conversion channel credit)</p>
+  <p><strong>Linear:</strong> Each of 6 touchpoints gets $83.33 (equal credit distribution)</p>
+  <p><strong>Time Decay:</strong> Store $200, Call $150, App $80, Email $40, Web $20, Facebook $10</p>
+  <p><strong>U-Shaped:</strong> Facebook $200, Store $200, middle 4 touchpoints $25 each</p>
+  
+  <p style="margin-top:12px"><strong>Business Impact:</strong> Without CJA, digital channels get NO credit for the $500 store sale — it appears as unattributed revenue. With CJA, you understand digital's FULL role in driving offline conversions!</p>
+</div>
+`,
+
+"cja-cja-distribution": `
+<div class="content-header">
+  <div class="breadcrumb">Customer Journey Analytics <span class="sep">›</span> Reporting & Analysis</div>
+  <h1>Distribution & Sharing</h1>
+  <p class="subtitle">Sharing projects, scheduling reports, and exporting data from CJA</p>
+</div>
+<div class="tag-row"><span class="tag exam">12% of Exam</span></div>
+
+<h2>Sharing Projects</h2>
+<p>CJA Workspace projects can be shared with other CJA users in your organization. You can share with specific individuals or groups, and you can control permissions: Edit (recipient can modify the project), Duplicate (recipient can copy but not modify original), or View only (recipient can view but not change). When you share a project, the recipient sees data based on THEIR Data View permissions — so if you share a project but they don't have access to the underlying Data View, they won't see any data. This is an important security concept for the exam.</p>
+
+<h2>Scheduling Reports</h2>
+<p>You can schedule Workspace projects to be automatically delivered via email on a recurring schedule (daily, weekly, monthly). The scheduled report is delivered as a PDF or CSV file attached to an email. When scheduling, you specify recipients, frequency, date range (rolling or fixed), and file format. Scheduled reports continue to run until you manually stop them or until a specified end date.</p>
+
+<h2>Export Options</h2>
+<p><strong>PDF Export:</strong> Generates a PDF document of the Workspace project as it appears on screen. Preserves visualizations and formatting. Good for stakeholder presentations.</p>
+<p><strong>CSV Export:</strong> Exports Freeform Table data as comma-separated values. Only exports data (not visualizations). Good for further analysis in Excel or other tools.</p>
+<p><strong>Send File Now:</strong> One-time immediate delivery via email.</p>
+<p><strong>Send File on Schedule:</strong> Recurring automated delivery.</p>
+
+<div class="info-card concept">
+  <div class="card-title">🎯 Exam Tips</div>
+  <p>Questions on the Distribution section (12% of exam) typically test:</p>
+  <ul>
+    <li>Understanding permission levels (Edit vs Duplicate vs View)</li>
+    <li>Knowing that recipients need Data View access to see data</li>
+    <li>Understanding export format options (PDF for visualizations, CSV for data)</li>
+    <li>Knowing scheduling options (frequency, date ranges)</li>
+  </ul>
+</div>
+
+<h2>End of CJA Content</h2>
+<p style="font-size:24px;text-align:center;margin:60px 0">🎓</p>
+<p style="text-align:center;font-size:14px;color:var(--text-dim)">You've completed the comprehensive CJA study content!<br>Review the 4-layer architecture, practice stitching concepts, and master cross-channel analysis.<br>You're ready for the AD0-E608 exam!</p>
+`
+};
+
+// ============== END OF CONTENT ==============
+
+// Add the AI quiz checking function
+function checkQuiz(btn, type) {
+    const card = btn.closest('.quiz-card');
+    const options = card.querySelectorAll('.quiz-option');
+    const explain = card.querySelector('.quiz-explain');
+    
+    options.forEach(opt => {
+        opt.disabled = true;
+        opt.style.cursor = 'not-allowed';
+    });
+    
+    if (type === 'correct') {
+        btn.classList.add('correct');
+    } else {
+        btn.classList.add('wrong');
+        // Find and highlight the correct answer
+        options.forEach(opt => {
+            if (opt.onclick.toString().includes("'correct'")) {
+                opt.classList.add('correct');
+            }
+        });
+    }
+    
+    if (explain) {
+        explain.style.display = 'block';
+    }
+}
+
+// Add smooth rendering and navigation
+let currentExam = 'aa';
+let currentTopic = '';
+
+function switchExam(exam, evt) {
+    currentExam = exam;
+    const tabs = document.querySelectorAll('.exam-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    (evt ? evt.target : event.target).classList.add('active');
+
+    renderNav();
+    if (DATA[exam].sections[0] && DATA[exam].sections[0].items[0]) {
+        loadTopic(DATA[exam].sections[0].items[0].id);
+    }
+}
+
+function renderNav() {
+    const nav = document.getElementById('sidebar-nav');
+    const sections = DATA[currentExam].sections;
+    
+    let html = '';
+    sections.forEach(section => {
+        html += `<div class="nav-section">`;
+        html += `<div class="nav-section-title">${section.title}</div>`;
+        section.items.forEach(item => {
+            const active = currentTopic === item.id ? 'active' : '';
+            html += `<div class="nav-item ${active}" onclick="loadTopic('${item.id}')">`;
+            html += `<span class="dot todo"></span>${item.title}`;
+            html += `</div>`;
+        });
+        html += `</div>`;
+    });
+    
+    nav.innerHTML = html;
+}
+
+function loadTopic(topicId) {
+    currentTopic = topicId;
+    const contentKey = `${currentExam}-${topicId}`;
+    const content = CONTENT[contentKey] || `<div class="content-header"><h1>Coming Soon</h1><p>This section is being prepared.</p></div>`;
+    
+    document.getElementById('content-area').innerHTML = content;
+    renderNav();
+    
+    // Smooth scroll to top
+    document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function filterNav() {
+    const searchTerm = document.getElementById('search').value.toLowerCase();
+    const items = document.querySelectorAll('.nav-item');
+    
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(searchTerm) ? 'flex' : 'none';
+    });
+}
+
+// Initialize on load
+window.addEventListener('DOMContentLoaded', () => {
+    renderNav();
+    if (DATA.aa.sections[0] && DATA.aa.sections[0].items[0]) {
+        loadTopic(DATA.aa.sections[0].items[0].id);
+    }
+    updateProgress();
+});
+
+function updateProgress() {
+    const progressText = document.getElementById('prog-text');
+    const progressCircle = document.getElementById('prog-circle');
+    
+    // Calculate progress (example: 60%)
+    const progress = 60;
+    progressText.textContent = progress + '%';
+    
+    const circumference = 2 * Math.PI * 16;
+    const offset = circumference - (progress / 100) * circumference;
+    progressCircle.style.strokeDashoffset = offset;
+}
+</script>
+</body>
+</html>
